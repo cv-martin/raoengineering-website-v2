@@ -634,11 +634,11 @@ export class ExperiencePageComponent {
       services: ['Rezoning', 'Site Development', 'Permitting']
     },
     {
-      title: 'Canyon Ridge Apartments - Lago Vista, TX',
+      title: 'Canyon Ridge Apartments - Porter, TX',
       category: 'Multi / Family',
-      location: 'Lago Vista, TX',
+      location: 'Porter, TX',
       image: 'assets/projects/SINGLE_FAMILY/SINGLE_FAMILY.jpg',
-      description: 'A premium apartment development designed to integrate seamlessly into the high-consequence topography of Lago Vista.',
+      description: 'A premium apartment development designed to integrate seamlessly into Porter.',
       scope: 'Complete site development, drainage modeling, and structural engineering.',
       services: ['Site Development', 'Drainage Modeling', 'Utility Design'],
     },
