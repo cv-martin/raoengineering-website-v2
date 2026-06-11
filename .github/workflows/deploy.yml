@@ -28,8 +28,11 @@ jobs:
       - name: Build Application
         run: npm run build -- --base-href /raoengineering-website-v2/
 
+      - name: Copy index.html to 404.html (For SPA Routing)
+        run: cp ./dist/raoengineering-v2/browser/index.html ./dist/raoengineering-v2/browser/404.html
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist/raoengineering-v2
+          publish_dir: ./dist/raoengineering-v2/browser
