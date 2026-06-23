@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { AnalyticsService } from '../../core/services/analytics.service';
 
 @Component({
   selector: 'app-contact',
@@ -56,7 +57,7 @@ import { FormsModule } from '@angular/forms';
                    <span class="text-slate-600">/</span>
                    <span class="text-xl text-slate-200 font-mono">512-856-4595</span>
                  </div>
-                 <a href="mailto:rao@raosengineering.com" class="block text-xl text-slate-200 hover:text-[#d5a021] transition-colors border-b border-transparent hover:border-[#d5a021] w-fit">rao&#64;raosengineering.com</a>
+                 <a href="mailto:rao@raosengineering.com" (click)="onEmailClick()" class="block text-xl text-slate-200 hover:text-[#d5a021] transition-colors border-b border-transparent hover:border-[#d5a021] w-fit">rao&#64;raosengineering.com</a>
                </div>
             </div>
 
@@ -196,6 +197,13 @@ export class ContactComponent {
   isSuccess = false;
   isError = false;
 
+  constructor(private analytics: AnalyticsService) {}
+
+  /** Track when a visitor clicks the email address link in the contact panel. */
+  onEmailClick(): void {
+    this.analytics.trackEmailClick('contact_page');
+  }
+
   async onSubmit() {
     this.isSubmitting = true;
     this.isSuccess = false;
@@ -216,6 +224,9 @@ export class ContactComponent {
 
       if (response.ok) {
         this.isSuccess = true;
+        // Track successful form submission with the chosen project category.
+        // Mark 'form_submit' as a Key Event in GA4 — this is a primary business conversion.
+        this.analytics.trackFormSubmit(this.formData.subject || 'Not specified');
         this.formData = { name: '', phone: '', email: '', subject: '', message: '' };
       } else {
         // Fallback to mailto if Formspree is not yet configured or fails (404/etc)
@@ -238,6 +249,9 @@ export class ContactComponent {
       `Message:\n${this.formData.message}`
     );
     
+    // Track the fallback so you know when Formspree failed vs succeeded.
+    this.analytics.trackMailtoFallback(this.formData.subject || 'Not specified');
+
     // Open user's email client as a fail-safe
     window.location.href = `mailto:rao@raosengineering.com?subject=${subject}&body=${body}`;
     

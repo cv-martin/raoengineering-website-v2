@@ -1,6 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { AnalyticsService } from '../../services/analytics.service';
 
 @Component({
   selector: 'app-navbar',
@@ -33,23 +34,23 @@ import { RouterModule } from '@angular/router';
             <!-- Standard Dropdown Menu -->
             <div class="absolute top-full left-0 mt-2 w-64 bg-slate-900 border border-slate-800 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-2 group-hover:translate-y-0 overflow-hidden">
               <div class="py-2">
-                <a routerLink="/services/land-development" class="block px-6 py-3 text-sm text-slate-300 hover:text-white hover:bg-white/5 transition-colors border-l-2 border-transparent hover:border-[#d5a021]">
+                <a routerLink="/services/land-development" (click)="onServiceClick('Land Development')" class="block px-6 py-3 text-sm text-slate-300 hover:text-white hover:bg-white/5 transition-colors border-l-2 border-transparent hover:border-[#d5a021]">
                   Land Development
                 </a>
-                <a routerLink="/services/water-resources" class="block px-6 py-3 text-sm text-slate-300 hover:text-white hover:bg-white/5 transition-colors border-l-2 border-transparent hover:border-[#d5a021]">
+                <a routerLink="/services/water-resources" (click)="onServiceClick('Water Resources')" class="block px-6 py-3 text-sm text-slate-300 hover:text-white hover:bg-white/5 transition-colors border-l-2 border-transparent hover:border-[#d5a021]">
                   Water Resources
                 </a>
-                <a routerLink="/services/transportation" class="block px-6 py-3 text-sm text-slate-300 hover:text-white hover:bg-white/5 transition-colors border-l-2 border-transparent hover:border-[#d5a021]">
+                <a routerLink="/services/transportation" (click)="onServiceClick('Transportation')" class="block px-6 py-3 text-sm text-slate-300 hover:text-white hover:bg-white/5 transition-colors border-l-2 border-transparent hover:border-[#d5a021]">
                   Transportation
                 </a>
-                <a routerLink="/services/environmental" class="block px-6 py-3 text-sm text-slate-300 hover:text-white hover:bg-white/5 transition-colors border-l-2 border-transparent hover:border-[#d5a021]">
+                <a routerLink="/services/environmental" (click)="onServiceClick('Environmental')" class="block px-6 py-3 text-sm text-slate-300 hover:text-white hover:bg-white/5 transition-colors border-l-2 border-transparent hover:border-[#d5a021]">
                   Environmental
                 </a>
-                <a routerLink="/services/permitting" class="block px-6 py-3 text-sm text-slate-300 hover:text-white hover:bg-white/5 transition-colors border-l-2 border-transparent hover:border-[#d5a021]">
+                <a routerLink="/services/permitting" (click)="onServiceClick('Permitting & Regulatory')" class="block px-6 py-3 text-sm text-slate-300 hover:text-white hover:bg-white/5 transition-colors border-l-2 border-transparent hover:border-[#d5a021]">
                   Permitting & Regulatory
                 </a>
                 <div class="h-px bg-white/10 my-2 mx-4"></div>
-                <a routerLink="/services" class="block px-6 py-3 text-xs font-bold uppercase tracking-wider text-[#d5a021] hover:text-white transition-colors">
+                <a routerLink="/services" (click)="onServiceClick('All Services')" class="block px-6 py-3 text-xs font-bold uppercase tracking-wider text-[#d5a021] hover:text-white transition-colors">
                   View All Services →
                 </a>
               </div>
@@ -65,7 +66,7 @@ import { RouterModule } from '@angular/router';
           <span class="text-white/60 font-mono text-xs tracking-widest hidden xl:block">
             210-549-7557
           </span>
-          <a routerLink="/contact" class="relative group overflow-hidden bg-[#d5a021] text-slate-900 px-8 py-3 font-bold text-xs uppercase tracking-[0.15em] hover:bg-white transition-all duration-300 skew-x-[-10deg]">
+          <a routerLink="/contact" (click)="onContactClick('navbar_desktop')" class="relative group overflow-hidden bg-[#d5a021] text-slate-900 px-8 py-3 font-bold text-xs uppercase tracking-[0.15em] hover:bg-white transition-all duration-300 skew-x-[-10deg]">
              <span class="block skew-x-[10deg]">Contact Us</span>
           </a>
         </div>
@@ -91,17 +92,17 @@ import { RouterModule } from '@angular/router';
              <!-- Mobile Services Accordion -->
              <div class="space-y-4">
                <p class="text-[#d5a021] text-xs font-black tracking-[0.3em] uppercase opacity-70">Services</p>
-                <a routerLink="/services/land-development" (click)="toggleMobileMenu()" class="block text-xl text-white/80 hover:text-white">Land Development</a>
-                <a routerLink="/services/water-resources" (click)="toggleMobileMenu()" class="block text-xl text-white/80 hover:text-white">Water Resources</a>
-                <a routerLink="/services/transportation" (click)="toggleMobileMenu()" class="block text-xl text-white/80 hover:text-white">Transportation</a>
-                <a routerLink="/services/environmental" (click)="toggleMobileMenu()" class="block text-xl text-white/80 hover:text-white">Environmental</a>
-                <a routerLink="/services/permitting" (click)="toggleMobileMenu()" class="block text-xl text-white/80 hover:text-white">Permitting & Regulatory</a>
+                <a routerLink="/services/land-development" (click)="onServiceClick('Land Development', true)" class="block text-xl text-white/80 hover:text-white">Land Development</a>
+                 <a routerLink="/services/water-resources" (click)="onServiceClick('Water Resources', true)" class="block text-xl text-white/80 hover:text-white">Water Resources</a>
+                 <a routerLink="/services/transportation" (click)="onServiceClick('Transportation', true)" class="block text-xl text-white/80 hover:text-white">Transportation</a>
+                 <a routerLink="/services/environmental" (click)="onServiceClick('Environmental', true)" class="block text-xl text-white/80 hover:text-white">Environmental</a>
+                 <a routerLink="/services/permitting" (click)="onServiceClick('Permitting & Regulatory', true)" class="block text-xl text-white/80 hover:text-white">Permitting & Regulatory</a>
              </div>
 
              <a routerLink="/experience" (click)="toggleMobileMenu()" class="text-4xl font-bold text-white hover:text-[#d5a021]">Projects</a>
              <a routerLink="/about" (click)="toggleMobileMenu()" class="text-4xl font-bold text-white hover:text-[#d5a021]">About RCE</a>
              
-             <a routerLink="/contact" (click)="toggleMobileMenu()" class="mt-8 w-full bg-[#d5a021] text-slate-900 py-4 text-center font-bold uppercase tracking-widest">
+             <a routerLink="/contact" (click)="onContactClick('navbar_mobile')" class="mt-8 w-full bg-[#d5a021] text-slate-900 py-4 text-center font-bold uppercase tracking-widest">
                Contact Us
              </a>
            </div>
@@ -128,6 +129,8 @@ export class NavbarComponent {
   isScrolled = false;
   isMobileMenuOpen = false;
 
+  constructor(private analytics: AnalyticsService) {}
+
   @HostListener('window:scroll', [])
   onWindowScroll() {
     this.isScrolled = window.scrollY > 20;
@@ -141,5 +144,23 @@ export class NavbarComponent {
     } else {
       document.body.style.overflow = 'auto';
     }
+  }
+
+  /**
+   * Track which service a visitor selects from the navbar.
+   * Also closes the mobile menu if triggered from the mobile drawer.
+   */
+  onServiceClick(serviceName: string, isMobile: boolean = false): void {
+    this.analytics.trackServiceClick(serviceName, 'navbar');
+    if (isMobile) this.toggleMobileMenu();
+  }
+
+  /**
+   * Track when a visitor clicks the Contact Us CTA in the navbar.
+   * Also closes the mobile menu if triggered from the mobile drawer.
+   */
+  onContactClick(source: string): void {
+    this.analytics.trackContactClick(source);
+    if (source === 'navbar_mobile') this.toggleMobileMenu();
   }
 }
