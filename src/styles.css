@@ -7,3 +7,122 @@ html, body {
   width: 100%;
   position: relative;
 }
+
+/* ============================================================
+   SCROLL REVEAL — Base & Direction Variants
+   Used by the [appScrollReveal] directive.
+   ============================================================ */
+
+.reveal-ready {
+  opacity: 0;
+  transition:
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Direction variants */
+.reveal-from-up    { transform: translateY(48px); }
+.reveal-from-down  { transform: translateY(-48px); }
+.reveal-from-left  { transform: translateX(-56px); }
+.reveal-from-right { transform: translateX(56px); }
+.reveal-from-scale { transform: scale(0.92); }
+.reveal-from-fade  { transform: none; }
+
+/* Revealed state — fired when IntersectionObserver fires */
+.revealed {
+  opacity: 1 !important;
+  transform: translate(0, 0) scale(1) !important;
+  filter: none !important;
+}
+
+/* ============================================================
+   HERO ENTRANCE — CSS Keyframe Animations (no JS needed)
+   ============================================================ */
+
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(36px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes heroSlideUpBlur {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes heroTrustBarSlide {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroBadgePop {
+  0%   { opacity: 0; transform: scale(0.85) translateY(8px); }
+  60%  { transform: scale(1.04) translateY(-2px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Hero element classes */
+.hero-badge {
+  animation: heroBadgePop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;
+}
+
+.hero-headline {
+  animation: heroSlideUpBlur 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+}
+
+.hero-subtext {
+  animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+}
+
+.hero-cta {
+  animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;
+}
+
+.hero-trustbar {
+  animation: heroTrustBarSlide 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.9s both;
+}
+
+/* ============================================================
+   REDUCED MOTION — Respect user preferences
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-ready,
+  .hero-badge,
+  .hero-headline,
+  .hero-subtext,
+  .hero-cta,
+  .hero-trustbar {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}
+

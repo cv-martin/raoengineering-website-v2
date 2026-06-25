@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Service } from '../../../../core/models/service.model';
 import { Router, RouterModule } from '@angular/router';
+import { ScrollRevealDirective } from '../../../../shared/directives/scroll-reveal.directive';
 
 @Component({
   selector: 'app-services',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, ScrollRevealDirective],
   templateUrl: './services.component.html',
   styleUrl: './services.component.css'
 })

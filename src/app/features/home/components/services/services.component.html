@@ -1,9 +1,23 @@
 <section class="relative w-full overflow-hidden">
+  <!-- Section label reveal -->
+  <div appScrollReveal revealDirection="up" [revealDelay]="0" [revealThreshold]="0.05"
+       class="absolute top-0 left-0 right-0 z-20 flex justify-center pt-8 pointer-events-none">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold tracking-[0.4em] uppercase">
+      <span class="w-1.5 h-1.5 rounded-full bg-[#d5a021] animate-pulse"></span>
+      Our Services
+    </div>
+  </div>
+
   <!-- Immersive Full-Width Accordion Wrapper -->
   <div class="relative w-full h-[85vh] min-h-[700px] flex flex-col lg:flex-row z-10 bg-slate-900">
 
     <!-- Dynamic Service Panels -->
-    <div *ngFor="let service of services" (click)="handleServiceClick(service)"
+    <div *ngFor="let service of services; let i = index"
+      appScrollReveal
+      revealDirection="up"
+      [revealDelay]="i * 120"
+      [revealThreshold]="0.05"
+      (click)="handleServiceClick(service)"
       (keydown.enter)="handleServiceClick(service)" role="button" tabindex="0"
       [attr.aria-label]="'Explore ' + service.title"
       class="group relative flex-1 border-r border-white/10 overflow-hidden cursor-pointer transition-[flex] duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] hover:flex-[3] grayscale-[0.3] hover:grayscale-0">

@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ScrollRevealDirective } from '../../../../shared/directives/scroll-reveal.directive';
 
 @Component({
   selector: 'app-experience',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, ScrollRevealDirective],
   template: `
     <section class="relative py-24 bg-white overflow-hidden">
       <!-- Decorative Backdrop Image: Gold Architectural Skyline Sketch -->
@@ -24,7 +25,7 @@ import { RouterModule } from '@angular/router';
           
           <!-- Left Column: Context & Categories -->
           <div class="space-y-10">
-            <div>
+            <div appScrollReveal revealDirection="left" [revealDelay]="0" [revealThreshold]="0.15">
               <span class="text-[#d5a021] font-bold tracking-[0.2em] uppercase text-sm mb-4 block">Our Portfolio</span>
               <h2 class="text-4xl md:text-5xl font-bold text-slate-900 leading-tight mb-6">
                 Selected Project <br/>Experience
@@ -38,19 +39,22 @@ import { RouterModule } from '@angular/router';
             <!-- Modern Category Ribbons -->
             <div class="space-y-6">
               <!-- Commercial -->
-              <div class="group border-l-4 border-slate-200 hover:border-[#d5a021] pl-6 transition-all duration-300">
+              <div appScrollReveal revealDirection="left" [revealDelay]="100" [revealThreshold]="0.1"
+                   class="group border-l-4 border-slate-200 hover:border-[#d5a021] pl-6 transition-all duration-300">
                 <h3 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-[#d5a021] transition-colors">Commercial & Retail</h3>
                 <p class="text-slate-500 text-sm font-medium tracking-wide">National QSRs • Medical Suites • Retail Pads</p>
               </div>
 
               <!-- Residential -->
-              <div class="group border-l-4 border-slate-200 hover:border-[#d5a021] pl-6 transition-all duration-300">
+              <div appScrollReveal revealDirection="left" [revealDelay]="200" [revealThreshold]="0.1"
+                   class="group border-l-4 border-slate-200 hover:border-[#d5a021] pl-6 transition-all duration-300">
                 <h3 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-[#d5a021] transition-colors">Residential & Multi / Family</h3>
                 <p class="text-slate-500 text-sm font-medium tracking-wide">Garden-Style Apartments • Townhomes • Master Plans</p>
               </div>
 
               <!-- Public -->
-              <div class="group border-l-4 border-slate-200 hover:border-[#d5a021] pl-6 transition-all duration-300">
+              <div appScrollReveal revealDirection="left" [revealDelay]="300" [revealThreshold]="0.1"
+                   class="group border-l-4 border-slate-200 hover:border-[#d5a021] pl-6 transition-all duration-300">
                 <h3 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-[#d5a021] transition-colors">Transportation</h3>
                 <p class="text-slate-500 text-sm font-medium tracking-wide">Municipal Drainage • Roadway Expansion • Utility Systems</p>
               </div>
@@ -65,7 +69,8 @@ import { RouterModule } from '@angular/router';
           </div>
 
           <!-- Right Column: Featured Showcase Card -->
-          <div class="relative group">
+          <div appScrollReveal revealDirection="right" [revealDelay]="150" [revealThreshold]="0.1"
+               class="relative group">
             <!-- Image Frame -->
             <div class="relative overflow-hidden rounded-lg shadow-2xl aspect-[4/5] md:aspect-[4/3] transform transition-transform duration-500 hover:-translate-y-2">
               <img src="assets/images/projects/residential_whitestone.png" alt="Whitestone Oaks Apartments Civil Engineering" 

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { trigger, transition, style, animate, state } from '@angular/animations';
+import { ScrollRevealDirective } from '../../../../shared/directives/scroll-reveal.directive';
 
 interface PillarStep {
   label: string;
@@ -29,7 +30,7 @@ interface Pillar {
 @Component({
   selector: 'app-why-us',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ScrollRevealDirective],
   animations: [
     trigger('contentFade', [
       transition(':enter', [
@@ -49,24 +50,32 @@ interface Pillar {
       <div class="container mx-auto px-6 relative z-10">
         <!-- Section Header -->
         <div class="text-center mb-16">
-          <div class="inline-block px-4 py-1 border border-[#d5a021]/30 rounded-full text-[#d5a021] text-[10px] font-bold tracking-[0.4em] uppercase mb-6 bg-white shadow-sm">
+          <div appScrollReveal revealDirection="fade" [revealDelay]="0"
+               class="inline-block px-4 py-1 border border-[#d5a021]/30 rounded-full text-[#d5a021] text-[10px] font-bold tracking-[0.4em] uppercase mb-6 bg-white shadow-sm">
             Institutional Journey
           </div>
-          <h2 class="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter mb-6 uppercase italic">
+          <h2 appScrollReveal revealDirection="up" [revealDelay]="100"
+              class="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter mb-6 uppercase italic">
             Why <span class="text-[#d5a021]">Rao’s Consulting Engineers?</span>
           </h2>
-          <p class="text-xl text-slate-600 font-light max-w-3xl mx-auto leading-relaxed">
+          <p appScrollReveal revealDirection="up" [revealDelay]="220"
+             class="text-xl text-slate-600 font-light max-w-3xl mx-auto leading-relaxed">
             We move projects from <span class="text-slate-900 font-bold">concept to construction</span> — efficiently.
           </p>
         </div>
 
         <!-- DASHBOARD CONTAINER -->
-        <div class="bg-white rounded-3xl shadow-2xl border border-slate-100 overflow-hidden max-w-7xl mx-auto relative">
+        <div appScrollReveal revealDirection="scale" [revealDelay]="80" [revealThreshold]="0.1"
+             class="bg-white rounded-3xl shadow-2xl border border-slate-100 overflow-hidden max-w-7xl mx-auto relative">
           
           <!-- SEGMENTED SELECTOR (Top Bar) -->
           <div class="grid grid-cols-2 lg:flex lg:flex-nowrap border-b border-slate-100 bg-slate-50/50">
             <button 
-              *ngFor="let pillar of pillars"
+              *ngFor="let pillar of pillars; let i = index"
+              appScrollReveal
+              revealDirection="up"
+              [revealDelay]="200 + (i * 80)"
+              [revealThreshold]="0.05"
               (click)="selectPillar(pillar)"
               [class.active]="selectedPillar.id === pillar.id"
               class="pillar-tab flex-1 flex flex-col items-center justify-center py-6 px-4 transition-all duration-300 relative group border-b-4 border-transparent hover:bg-white"
