@@ -116,7 +116,7 @@ import { RouterModule } from '@angular/router';
               <div>
                 <h4 class="text-2xl font-bold text-white mb-2 group-hover:text-[#d5a021] transition-colors">Senior Civil Engineer (P.E.)</h4>
                 <div class="flex gap-4 text-xs font-bold uppercase tracking-wider text-slate-500">
-                  <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#d5a021] rounded-full"></span> San Antonio HQ</span>
+                  <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#d5a021] rounded-full"></span> San Antonio Office</span>
                   <span>•</span>
                   <span>Full-Time</span>
                 </div>
@@ -136,7 +136,7 @@ import { RouterModule } from '@angular/router';
               <div>
                 <h4 class="text-2xl font-bold text-white mb-2 group-hover:text-[#d5a021] transition-colors">Graduate Engineer (E.I.T.)</h4>
                 <div class="flex gap-4 text-xs font-bold uppercase tracking-wider text-slate-500">
-                  <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#d5a021] rounded-full"></span> San Antonio HQ</span>
+                  <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#d5a021] rounded-full"></span> San Antonio Office</span>
                   <span>•</span>
                   <span>Full-Time</span>
                 </div>

@@ -54,10 +54,10 @@ import {
             <div class="space-y-6">
                <div class="space-y-2">
                  <h3 class="text-white/80 font-bold uppercase tracking-widest text-xs flex items-center gap-2">
-                    <span class="w-2 h-2 bg-[#d5a021] rounded-full"></span> Corporate Headquarters
+                    <span class="w-2 h-2 bg-[#d5a021] rounded-full"></span> Headquarters
                  </h3>
-                 <p class="text-3xl text-white font-bold tracking-tight">San Antonio, Texas</p>
-                 <p class="text-slate-400 text-sm max-w-xs">Serving clients across Cedar Park, Austin, and the greater Texas region.</p>
+                 <p class="text-3xl text-white font-bold tracking-tight">Cedar Park, Texas</p>
+                 <p class="text-slate-400 text-sm max-w-xs">Austin area headquarters, with a branch office in San Antonio. Serving clients across Texas.</p>
                </div>
                
                <div class="flex flex-col gap-3 pt-4 border-t border-white/10 w-fit">

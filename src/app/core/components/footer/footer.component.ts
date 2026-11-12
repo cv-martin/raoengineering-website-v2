@@ -62,7 +62,7 @@ import { AnalyticsService } from '../../services/analytics.service';
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
                 <div class="space-y-1">
-                  <strong class="text-white block">Cedar Park Office</strong>
+                  <strong class="text-white block">Headquarters – Cedar Park</strong>
                   <span class="block text-slate-400">1908 Yaupon Trail, Unit 206</span>
                   <span class="block text-slate-400">Cedar Park, TX 78613</span>
                 </div>
@@ -75,7 +75,7 @@ import { AnalyticsService } from '../../services/analytics.service';
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
                 <div class="space-y-1">
-                  <strong class="text-white block">San Antonio Office</strong>
+                  <strong class="text-white block">San Antonio Branch</strong>
                   <span class="block text-slate-400">318 E. Nakoma St, Suite 111</span>
                   <span class="block text-slate-400">San Antonio, TX 78216</span>
                 </div>

@@ -237,7 +237,7 @@ interface Pillar {
            <button class="bg-[#d5a021] text-white px-12 py-5 rounded-full font-bold uppercase tracking-[0.3em] text-sm hover:bg-amber-600 transition-all shadow-2xl hover:shadow-[#d5a021]/30 hover:-translate-y-1 active:scale-95">
               Initiate Strategic Review
            </button>
-           <p class="text-slate-400 mt-8 text-xs font-mono uppercase tracking-[0.2em]">© 2026 Rao’s Consulting Engineers • SATX Headquarters</p>
+           <p class="text-slate-400 mt-8 text-xs font-mono uppercase tracking-[0.2em]">© 2026 Rao’s Consulting Engineers • Cedar Park, TX Headquarters</p>
         </div>
       </div>
     </section>
