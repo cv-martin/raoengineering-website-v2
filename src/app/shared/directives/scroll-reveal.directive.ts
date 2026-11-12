@@ -43,6 +43,16 @@ export class ScrollRevealDirective implements OnInit, OnDestroy {
       return;
     }
 
+    // Content already on screen at load is shown as-is, never hidden.
+    // Crawlers such as Google render in a very tall window where everything
+    // is "on screen", and hiding it until a fade finished left whole sections
+    // blank in Search Console's screenshot. Only content that starts below
+    // the fold gets the scroll-in animation.
+    const rect = (this.el.nativeElement as HTMLElement).getBoundingClientRect();
+    if (rect.top < window.innerHeight) {
+      return;
+    }
+
     // Apply the initial "hidden" state class
     const directionClass = this.getDirectionClass();
     this.renderer.addClass(this.el.nativeElement, 'reveal-ready');
