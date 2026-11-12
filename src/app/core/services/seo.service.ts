@@ -10,7 +10,7 @@ import { Meta, Title } from '@angular/platform-browser';
  * to link previews. Route metadata now lives in `data.seo` on each route in
  * app.routes.ts; AppComponent applies it on every NavigationEnd.
  */
-export const SITE_ORIGIN = 'https://www.raosengineering.com';
+export const SITE_ORIGIN = 'https://raosengineering.com';
 const SITE_NAME = "Rao's Consulting Engineers";
 
 export interface SeoData {

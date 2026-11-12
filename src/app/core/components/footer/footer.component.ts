@@ -99,7 +99,7 @@ import { AnalyticsService } from '../../services/analytics.service';
                  </svg>
                  <div class="flex flex-col text-xs">
                   <a href="mailto:rao@raosengineering.com" (click)="onEmailClick()" class="hover:text-white transition-colors break-all">rao&#64;raosengineering.com</a>
-                   <a href="https://www.raosengineering.com" target="_blank" class="hover:text-white transition-colors mt-1">www.raosengineering.com</a>
+                   <a href="https://raosengineering.com" target="_blank" class="hover:text-white transition-colors mt-1">raosengineering.com</a>
                  </div>
               </div>
 

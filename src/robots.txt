@@ -25,4 +25,4 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-Sitemap: https://www.raosengineering.com/sitemap.xml
+Sitemap: https://raosengineering.com/sitemap.xml
