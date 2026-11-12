@@ -23,12 +23,19 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/googleL0Pv4WDKP657t3lfHrRY9-Hr4ycznOaEt7kGyGJ3C_Y.html"
+              "src/googleL0Pv4WDKP657t3lfHrRY9-Hr4ycznOaEt7kGyGJ3C_Y.html",
+              "src/robots.txt",
+              "src/sitemap.xml"
             ],
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "server": "src/main.server.ts",
+            "prerender": {
+              "discoverRoutes": true,
+              "routesFile": "prerender-routes.txt"
+            }
           },
           "configurations": {
             "production": {
@@ -83,7 +90,9 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/googleL0Pv4WDKP657t3lfHrRY9-Hr4ycznOaEt7kGyGJ3C_Y.html"
+              "src/googleL0Pv4WDKP657t3lfHrRY9-Hr4ycznOaEt7kGyGJ3C_Y.html",
+              "src/robots.txt",
+              "src/sitemap.xml"
             ],
             "styles": [
               "src/styles.css"

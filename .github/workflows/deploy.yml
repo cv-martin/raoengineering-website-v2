@@ -27,7 +27,9 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 24
+          # Angular 17 officially supports Node 18/20; Node 24 reports as
+          # "Unsupported" and the prerender step is the fragile part of the build.
+          node-version: 20
           cache: 'npm'
 
       - name: Install dependencies
@@ -35,9 +37,20 @@ jobs:
 
       - name: Build
         # Since you are using a custom domain (raosengineering.com), base href must be /
+        # Prerendering writes a real <route>/index.html for every route, so GitHub
+        # Pages serves each one with HTTP 200 instead of falling back to 404.html.
         run: npm run build -- --base-href /
 
-      - name: Copy index.html to 404.html (For SPA Routing)
+      - name: Verify prerendered routes exist
+        # Fails the deploy if prerendering silently produced fewer pages than expected.
+        run: |
+          count=$(find dist/raoengineering-v2/browser -name index.html | wc -l)
+          echo "Prerendered pages: $count"
+          test "$count" -eq 11
+          test -f dist/raoengineering-v2/browser/robots.txt
+          test -f dist/raoengineering-v2/browser/sitemap.xml
+
+      - name: Copy index.html to 404.html (fallback for unknown URLs only)
         run: cp dist/raoengineering-v2/browser/index.html dist/raoengineering-v2/browser/404.html
 
       - name: Upload artifact

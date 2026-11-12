@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Inject, Input, OnInit, OnDestroy, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 interface ServiceItem {
@@ -71,6 +71,8 @@ export class ServiceHudComponent implements OnInit, OnDestroy {
     { id: 'permitting', title: 'Permitting', shortTitle: 'Permit' }
   ];
 
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   private scrollListener = () => {
     const scrollPos = window.scrollY;
     const totalHeight = document.documentElement.scrollHeight;
@@ -86,12 +88,19 @@ export class ServiceHudComponent implements OnInit, OnDestroy {
   };
 
   ngOnInit() {
+    // No window during prerendering; the HUD is a scroll affordance only.
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
     window.addEventListener('scroll', this.scrollListener);
     // Initial calculation
     setTimeout(this.scrollListener, 100);
   }
 
   ngOnDestroy() {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
     window.removeEventListener('scroll', this.scrollListener);
   }
 

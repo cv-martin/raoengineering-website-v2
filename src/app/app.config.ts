@@ -4,6 +4,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 
 import { routes } from './app.routes';
 import { GlobalErrorHandler } from './core/services/global-error-handler';
+import { provideClientHydration } from '@angular/platform-browser';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,6 +15,6 @@ export const appConfig: ApplicationConfig = {
         scrollPositionRestoration: 'top',
       })
     ),
-    { provide: ErrorHandler, useClass: GlobalErrorHandler }
+    { provide: ErrorHandler, useClass: GlobalErrorHandler }, provideClientHydration()
   ]
 };

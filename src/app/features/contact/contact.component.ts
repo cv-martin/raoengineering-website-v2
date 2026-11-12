@@ -2,7 +2,16 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { AnalyticsService } from '../../core/services/analytics.service';
+import {
+  CONTACT_FALLBACK_EMAIL,
+  CONTACT_FALLBACK_PHONES,
+  CONTACT_FORM_ENDPOINT,
+  ZOHO_FORM_URL,
+  isContactFormConfigured,
+  isZohoFormConfigured
+} from '../../core/config/contact-form.config';
 
 @Component({
   selector: 'app-contact',
@@ -90,7 +99,29 @@ import { AnalyticsService } from '../../core/services/analytics.service';
             </div>
             <div class="h-1 w-12 bg-[#d5a021] mb-8"></div>
 
-            <form (ngSubmit)="onSubmit()" class="space-y-8" *ngIf="!isSuccess">
+            <!--
+              Zoho Forms embed. Zoho receives the inquiry, stores it against the
+              account and sends the notification, so a submission survives even
+              if the notification e-mail fails. Shown whenever a form URL is
+              configured; the hand-built form below stays as the fallback.
+            -->
+            <div *ngIf="useZohoForm" class="zoho-embed">
+              <iframe
+                [src]="zohoFormUrl"
+                title="RCE Project Consultation form"
+                loading="lazy"
+                class="w-full border-0"
+                style="min-height: 800px;"></iframe>
+
+              <p class="mt-6 text-xs text-slate-500">
+                Trouble with the form? Email
+                <a [href]="'mailto:' + fallbackEmail" class="font-semibold text-slate-700 underline">{{ fallbackEmail }}</a>
+                or call
+                <span *ngFor="let phone of fallbackPhones; let last = last"><a [href]="'tel:' + phone" class="font-semibold text-slate-700 underline">{{ phone }}</a><span *ngIf="!last"> / </span></span>.
+              </p>
+            </div>
+
+            <form (ngSubmit)="onSubmit()" class="space-y-8" *ngIf="!isSuccess && !useZohoForm">
                
                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                  <!-- Name -->
@@ -135,9 +166,25 @@ import { AnalyticsService } from '../../core/services/analytics.service';
                  <label for="message" class="absolute left-0 -top-3.5 text-xs text-slate-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-slate-400 peer-placeholder-shown:top-3 peer-focus:-top-3.5 peer-focus:text-xs peer-focus:text-[#d5a021] font-bold uppercase tracking-wider">Project Brief</label>
                </div>
 
-               <!-- Error Message -->
-               <div *ngIf="isError" class="bg-red-50 text-red-600 p-4 rounded text-sm font-medium border border-red-100 animate-fade-in">
-                 Failed to send message. Please try again or direct email us at rao&#64;raosengineering.com
+               <!-- Delivery failure: never claim the message was received. -->
+               <div *ngIf="isError" class="bg-red-50 p-5 rounded border border-red-200 animate-fade-in">
+                 <p class="text-red-700 text-sm font-bold uppercase tracking-wider mb-2">Message not sent</p>
+                 <p class="text-slate-700 text-sm mb-4">
+                   We could not deliver your inquiry from the website. Your details are still
+                   in the form below, so nothing is lost. Please send them directly:
+                 </p>
+                 <a [href]="mailtoHref" class="inline-block bg-slate-900 text-white font-bold py-3 px-6 text-xs uppercase tracking-widest hover:bg-[#d5a021] hover:text-slate-900 transition-colors">
+                   Email this inquiry
+                 </a>
+                 <div class="mt-4 text-sm text-slate-600 space-y-1">
+                   <p>Or email <a [href]="'mailto:' + fallbackEmail" class="font-semibold text-slate-900 underline">{{ fallbackEmail }}</a></p>
+                   <p>
+                     Or call
+                     <span *ngFor="let phone of fallbackPhones; let last = last">
+                       <a [href]="'tel:' + phone" class="font-semibold text-slate-900 underline">{{ phone }}</a><span *ngIf="!last"> / </span>
+                     </span>
+                   </p>
+                 </div>
                </div>
 
                <!-- Submit -->
@@ -155,7 +202,7 @@ import { AnalyticsService } from '../../core/services/analytics.service';
             </form>
 
             <!-- Success State -->
-            <div *ngIf="isSuccess" class="text-center py-12 animate-fade-in">
+            <div *ngIf="isSuccess && !useZohoForm" class="text-center py-12 animate-fade-in">
               <div class="w-16 h-16 bg-[#d5a021] text-slate-900 rounded-full flex items-center justify-center mx-auto mb-6">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
@@ -197,7 +244,46 @@ export class ContactComponent {
   isSuccess = false;
   isError = false;
 
-  constructor(private analytics: AnalyticsService) {}
+  readonly fallbackEmail = CONTACT_FALLBACK_EMAIL;
+  readonly fallbackPhones = CONTACT_FALLBACK_PHONES;
+
+  /** True when inquiries go to Zoho Forms rather than the hand-built form. */
+  readonly useZohoForm = isZohoFormConfigured();
+  readonly zohoFormUrl: SafeResourceUrl;
+
+  constructor(
+    private analytics: AnalyticsService,
+    sanitizer: DomSanitizer
+  ) {
+    // The URL is a compile-time constant from our own config, not user input.
+    this.zohoFormUrl = sanitizer.bypassSecurityTrustResourceUrl(ZOHO_FORM_URL);
+  }
+
+  /**
+   * A mailto: link carrying whatever the visitor typed, shown only after a
+   * failed submission. It is a link the visitor chooses to click, not an
+   * automatic redirect — a redirect does nothing at all on a device with no
+   * mail client configured, which is how inquiries were being lost silently.
+   */
+  get mailtoHref(): string {
+    const subject = encodeURIComponent(
+      `Project Inquiry: ${this.formData.subject || 'General'}`
+    );
+    const body = encodeURIComponent(
+      `Name: ${this.formData.name}
+` +
+      `Phone: ${this.formData.phone}
+` +
+      `Email: ${this.formData.email}
+` +
+      `Project category: ${this.formData.subject}
+
+` +
+      `Project brief:
+${this.formData.message}`
+    );
+    return `mailto:${CONTACT_FALLBACK_EMAIL}?subject=${subject}&body=${body}`;
+  }
 
   /** Track when a visitor clicks the email address link in the contact panel. */
   onEmailClick(): void {
@@ -209,8 +295,15 @@ export class ContactComponent {
     this.isSuccess = false;
     this.isError = false;
 
+    // No endpoint configured yet — fail honestly rather than pretend to send.
+    if (!isContactFormConfigured()) {
+      this.reportFailure('not_configured');
+      this.isSubmitting = false;
+      return;
+    }
+
     try {
-      const response = await fetch('https://formspree.io/f/xoqyzrvv', {
+      const response = await fetch(CONTACT_FORM_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -222,41 +315,57 @@ export class ContactComponent {
         })
       });
 
+      // FormSubmit answers HTTP 200 even when it rejects the submission (for
+      // example while the form is still awaiting activation), so the status
+      // code alone must never be treated as proof of delivery. The body's
+      // "success" flag is the real answer.
+      let accepted = response.ok;
+      let reason = `http_${response.status}`;
+
       if (response.ok) {
+        try {
+          const body = await response.json();
+          if ('success' in body) {
+            accepted = String(body.success) === 'true';
+            if (!accepted) {
+              reason = 'rejected_by_provider';
+              console.error('Contact form rejected:', body.message);
+            }
+          }
+        } catch {
+          // A 2xx with no JSON body: treat as accepted, as Formspree-style
+          // endpoints answer 200 with an empty body on success.
+        }
+      }
+
+      if (accepted) {
         this.isSuccess = true;
         // Track successful form submission with the chosen project category.
         // Mark 'form_submit' as a Key Event in GA4 — this is a primary business conversion.
         this.analytics.trackFormSubmit(this.formData.subject || 'Not specified');
+        // Only clear the form once the inquiry has genuinely been accepted.
         this.formData = { name: '', phone: '', email: '', subject: '', message: '' };
       } else {
-        // Fallback to mailto if Formspree is not yet configured or fails (404/etc)
-        this.triggerMailtoFallback();
+        this.reportFailure(reason);
       }
     } catch (error) {
       console.error('Form submission error:', error);
-      this.triggerMailtoFallback();
+      this.reportFailure('network_error');
     } finally {
       this.isSubmitting = false;
     }
   }
 
-  private triggerMailtoFallback() {
-    const subject = encodeURIComponent(`Project Inquiry: ${this.formData.subject}`);
-    const body = encodeURIComponent(
-      `Name: ${this.formData.name}\n` +
-      `Phone: ${this.formData.phone}\n` +
-      `Email: ${this.formData.email}\n\n` +
-      `Message:\n${this.formData.message}`
+  /**
+   * Shows the failure panel and records the reason. The form data is kept so
+   * the visitor can still send it by e-mail or phone, and the success state is
+   * never set — an inquiry RCE did not receive must not look like one it did.
+   */
+  private reportFailure(reason: string): void {
+    this.isError = true;
+    this.isSuccess = false;
+    this.analytics.trackMailtoFallback(
+      `${this.formData.subject || 'Not specified'} (${reason})`
     );
-    
-    // Track the fallback so you know when Formspree failed vs succeeded.
-    this.analytics.trackMailtoFallback(this.formData.subject || 'Not specified');
-
-    // Open user's email client as a fail-safe
-    window.location.href = `mailto:rao@raosengineering.com?subject=${subject}&body=${body}`;
-    
-    // Still show success state because the "intent" to send is fulfilled via mail app
-    this.isSuccess = true;
-    this.formData = { name: '', phone: '', email: '', subject: '', message: '' };
   }
 }

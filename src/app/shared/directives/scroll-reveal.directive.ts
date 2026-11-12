@@ -1,9 +1,12 @@
+import { isPlatformBrowser } from '@angular/common';
 import {
   Directive,
   ElementRef,
+  Inject,
   Input,
   OnDestroy,
   OnInit,
+  PLATFORM_ID,
   Renderer2,
 } from '@angular/core';
 
@@ -25,9 +28,21 @@ export class ScrollRevealDirective implements OnInit, OnDestroy {
 
   private observer: IntersectionObserver | null = null;
 
-  constructor(private el: ElementRef, private renderer: Renderer2) {}
+  constructor(
+    private el: ElementRef,
+    private renderer: Renderer2,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   ngOnInit(): void {
+    // During prerendering there is no IntersectionObserver, and nothing can
+    // scroll. Leaving the element in its pre-reveal (hidden) state would ship
+    // invisible content in the static HTML, so the server renders it as-is and
+    // the reveal animation is set up only in the browser.
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
     // Apply the initial "hidden" state class
     const directionClass = this.getDirectionClass();
     this.renderer.addClass(this.el.nativeElement, 'reveal-ready');

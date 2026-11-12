@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
@@ -807,8 +807,14 @@ export class ExperiencePageComponent {
     }
   }
 
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   // HUD Logic
   ngOnInit() {
+    // IntersectionObserver and window do not exist during prerendering.
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
     this.setupIntersectionObserver();
     this.setupScrollListener();
   }

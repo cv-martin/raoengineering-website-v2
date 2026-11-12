@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { NavbarComponent } from './core/components/navbar/navbar.component';
 import { FooterComponent } from './core/components/footer/footer.component';
 import { AnalyticsService } from './core/services/analytics.service';
+import { SeoData, SeoService } from './core/services/seo.service';
+import { DEFAULT_SEO } from './app.routes';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +19,9 @@ export class AppComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private analytics: AnalyticsService
+    private activatedRoute: ActivatedRoute,
+    private analytics: AnalyticsService,
+    private seo: SeoService
   ) {}
 
   ngOnInit(): void {
@@ -40,6 +44,10 @@ export class AppComponent implements OnInit {
       .subscribe((event: NavigationEnd) => {
         navigationCount++;
 
+        // Apply this route's title, description and canonical URL before
+        // reporting the page view, so GA4 records the correct document.title.
+        this.seo.apply(this.seoForActiveRoute(), event.urlAfterRedirects);
+
         // Skip the very first navigation — GA4 already sent a page_view on load.
         if (navigationCount === 1) return;
 
@@ -48,5 +56,17 @@ export class AppComponent implements OnInit {
           document.title
         );
       });
+  }
+
+  /**
+   * Walks to the deepest activated route and returns its `data.seo`,
+   * falling back to the site-wide defaults for any route without one.
+   */
+  private seoForActiveRoute(): SeoData {
+    let route = this.activatedRoute;
+    while (route.firstChild) {
+      route = route.firstChild;
+    }
+    return (route.snapshot.data['seo'] as SeoData | undefined) ?? DEFAULT_SEO;
   }
 }

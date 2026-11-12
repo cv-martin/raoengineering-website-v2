@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 
 interface Project {
@@ -156,14 +156,19 @@ export class ProjectDetailComponent implements OnInit {
     }
   };
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(
+    private route: ActivatedRoute,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       const slug = params.get('slug');
       if (slug) {
         this.project = this.projects[slug] || null;
-        window.scrollTo(0, 0);
+        if (isPlatformBrowser(this.platformId)) {
+          window.scrollTo(0, 0);
+        }
       }
     });
   }
