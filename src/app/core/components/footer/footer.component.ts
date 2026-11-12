@@ -110,7 +110,7 @@ import { AnalyticsService } from '../../services/analytics.service';
 
         <div class="pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p class="text-xs text-slate-600 font-medium">
-            &copy; {{ currentYear }} Rao's Consulting Engineers. All rights reserved.
+            &copy; {{ currentYear }} Rao's Consulting Engineers, LLC. All rights reserved. · Texas Registered Engineering Firm F-17655
           </p>
              <div class="flex items-center gap-6">
                <div class="flex items-center gap-4">
