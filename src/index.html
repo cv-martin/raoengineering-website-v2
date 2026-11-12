@@ -55,25 +55,24 @@
   <link rel="icon" type="image/png" sizes="192x192" href="assets/logo/favicon-192x192.png">
   <link rel="apple-touch-icon" sizes="192x192" href="assets/logo/favicon-192x192.png">
 
-  <!--
-    ═══════════════════════════════════════════════════════════════════════════
-    Google Analytics 4 — GA4
-    ───────────────────────────────────────────────────────────────────────────
-    IMPORTANT: Replace G-PLACEHOLDER with your real Measurement ID.
-    Get it from: Google Analytics → Admin → Data Streams → your stream → Measurement ID
-    ═══════════════════════════════════════════════════════════════════════════
-  -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PLACEHOLDER"></script>
+  <!-- Google Tag Manager (container GTM-K75ZSRSX). GA4 and other tags are
+       configured inside GTM; the site only pushes events to dataLayer. -->
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
+    function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
-    gtag('config', 'G-PLACEHOLDER');
   </script>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-K75ZSRSX');</script>
 </head>
 
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K75ZSRSX"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <app-root></app-root>
 </body>
 
