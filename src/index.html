@@ -31,21 +31,65 @@
   <!-- Organization identity for search engines. Tells Google which image is
        RCE's actual logo; previously it had to guess from page content. -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "@id": "https://raosengineering.com/#organization",
-    "name": "Rao's Consulting Engineers",
-    "alternateName": "RCE",
-    "url": "https://raosengineering.com/",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://raosengineering.com/assets/logo/rce_logo_square_1000.png",
-      "width": 1000,
-      "height": 1000
-    },
-    "image": "https://raosengineering.com/assets/logo/rce_share_1200x630.png"
-  }
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": "https://raosengineering.com/#organization",
+  "name": "Rao's Consulting Engineers",
+  "alternateName": "RCE",
+  "url": "https://raosengineering.com/",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://raosengineering.com/assets/logo/rce_logo_square_1000.png",
+    "width": 1000,
+    "height": 1000
+  },
+  "image": "https://raosengineering.com/assets/logo/rce_share_1200x630.png",
+  "email": "rao@raosengineering.com",
+  "telephone": "+1-512-856-4595",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "1908 Yaupon Trail, Unit 206",
+    "addressLocality": "Cedar Park",
+    "addressRegion": "TX",
+    "postalCode": "78613",
+    "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 30.5318225,
+    "longitude": -97.8403386
+  },
+  "areaServed": {
+    "@type": "State",
+    "name": "Texas"
+  },
+  "knowsAbout": [
+    "Civil engineering",
+    "Land development",
+    "Site plans",
+    "Water resources",
+    "Drainage design",
+    "Transportation engineering",
+    "Environmental permitting",
+    "Edwards Aquifer permitting"
+  ],
+  "department": [
+    {
+      "@type": "ProfessionalService",
+      "name": "Rao's Consulting Engineers - San Antonio Branch",
+      "telephone": "+1-210-549-7557",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "318 E. Nakoma St, Suite 111",
+        "addressLocality": "San Antonio",
+        "addressRegion": "TX",
+        "postalCode": "78216",
+        "addressCountry": "US"
+      }
+    }
+  ]
+}
   </script>
 
   <!-- Favicon and App Icons -->

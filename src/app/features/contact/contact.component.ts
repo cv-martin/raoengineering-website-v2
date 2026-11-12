@@ -219,6 +219,37 @@ import {
       </div>
 
     </div>
+
+    <!-- Office locations. Maps pin by street address using Google's own
+         geocoder, so they match Google Maps exactly. -->
+    <section class="bg-white py-16 px-6 md:px-12 lg:px-20">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">Our Offices</h2>
+        <div class="h-1 w-12 bg-[#d5a021] mt-3 mb-10"></div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+          <div *ngFor="let office of offices">
+            <p class="text-xs font-bold uppercase tracking-widest text-[#d5a021]">{{ office.label }}</p>
+            <p class="mt-2 text-lg font-bold text-slate-900">{{ office.street }}</p>
+            <p class="text-slate-600">{{ office.city }}</p>
+            <p class="mt-1 text-slate-600">
+              <a [href]="'tel:' + office.phone" class="underline hover:text-slate-900">{{ office.phone }}</a>
+            </p>
+            <div class="mt-4 aspect-[4/3] w-full overflow-hidden border border-slate-200">
+              <iframe
+                [src]="office.mapUrl"
+                [title]="'Map of ' + office.label"
+                class="w-full h-full border-0"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <a [href]="office.directionsUrl" target="_blank" rel="noopener"
+               class="inline-block mt-3 text-sm font-bold uppercase tracking-widest text-slate-900 hover:text-[#d5a021]">
+              Get directions →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
   `,
   styles: [`
     :host {
@@ -247,13 +278,38 @@ export class ContactComponent {
   readonly fallbackEmail = CONTACT_FALLBACK_EMAIL;
   readonly fallbackPhones = CONTACT_FALLBACK_PHONES;
 
+  /** Headquarters first, then the branch. Address strings match the footer. */
+  readonly offices = [
+    {
+      label: 'Headquarters – Cedar Park',
+      street: '1908 Yaupon Trail, Unit 206',
+      city: 'Cedar Park, TX 78613',
+      phone: '512-856-4595',
+    },
+    {
+      label: 'San Antonio Branch',
+      street: '318 E. Nakoma St, Suite 111',
+      city: 'San Antonio, TX 78216',
+      phone: '210-549-7557',
+    },
+  ].map(o => {
+    const q = encodeURIComponent(`Rao's Consulting Engineers, ${o.street}, ${o.city}`);
+    const addr = encodeURIComponent(`${o.street}, ${o.city}`);
+    return {
+      ...o,
+      mapUrl: this.sanitizer.bypassSecurityTrustResourceUrl(
+        `https://maps.google.com/maps?q=${addr}&z=16&output=embed`),
+      directionsUrl: `https://www.google.com/maps/dir/?api=1&destination=${q}`,
+    };
+  });
+
   /** True when inquiries go to Zoho Forms rather than the hand-built form. */
   readonly useZohoForm = isZohoFormConfigured();
   readonly zohoFormUrl: SafeResourceUrl;
 
   constructor(
     private analytics: AnalyticsService,
-    sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer
   ) {
     // The URL is a compile-time constant from our own config, not user input.
     this.zohoFormUrl = sanitizer.bypassSecurityTrustResourceUrl(ZOHO_FORM_URL);
