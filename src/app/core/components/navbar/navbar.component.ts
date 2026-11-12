@@ -50,7 +50,7 @@ import { AnalyticsService } from '../../services/analytics.service';
                   Permitting & Regulatory
                 </a>
                 <div class="h-px bg-white/10 my-2 mx-4"></div>
-                <a routerLink="/services" (click)="onServiceClick('All Services')" class="block px-6 py-3 text-xs font-bold uppercase tracking-wider text-[#d5a021] hover:text-white transition-colors">
+                <a routerLink="/" fragment="services" (click)="onServiceClick('All Services')" class="block px-6 py-3 text-xs font-bold uppercase tracking-wider text-[#d5a021] hover:text-white transition-colors">
                   View All Services →
                 </a>
               </div>

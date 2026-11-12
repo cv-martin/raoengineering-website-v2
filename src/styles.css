@@ -40,9 +40,11 @@ html, body {
    HERO ENTRANCE — CSS Keyframe Animations (no JS needed)
    ============================================================ */
 
+/* Hero entrance animations move but never start invisible: crawlers such as
+   Google's renderer can capture the first frame, and an opacity:0/blur start
+   made the whole hero render as an empty gray block in Search Console. */
 @keyframes heroFadeUp {
   from {
-    opacity: 0;
     transform: translateY(36px);
   }
   to {
@@ -58,9 +60,7 @@ html, body {
 
 @keyframes heroSlideUpBlur {
   from {
-    opacity: 0;
     transform: translateY(24px);
-    filter: blur(6px);
   }
   to {
     opacity: 1;
@@ -71,7 +71,6 @@ html, body {
 
 @keyframes heroTrustBarSlide {
   from {
-    opacity: 0;
     transform: translateY(20px);
   }
   to {
@@ -81,7 +80,7 @@ html, body {
 }
 
 @keyframes heroBadgePop {
-  0%   { opacity: 0; transform: scale(0.85) translateY(8px); }
+  0%   { transform: scale(0.85) translateY(8px); }
   60%  { transform: scale(1.04) translateY(-2px); }
   100% { opacity: 1; transform: scale(1) translateY(0); }
 }
