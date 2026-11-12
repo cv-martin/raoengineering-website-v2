@@ -49,6 +49,7 @@ import { RouterModule } from '@angular/router';
              <div class="h-16 w-px bg-slate-200"></div>
              <div class="text-base text-slate-500 font-light leading-relaxed max-w-[220px]">
                 Elite engineering planning & design since 2005.
+                <span class="block mt-3 text-[11px] font-medium text-slate-400 tracking-wide">Texas Registered Engineering Firm <span class="whitespace-nowrap">F-17655</span></span>
              </div>
           </div>
         </div>
