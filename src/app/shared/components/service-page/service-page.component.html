@@ -1,0 +1,173 @@
+<app-service-hud [currentServiceId]="content.id"></app-service-hud>
+
+<!-- HERO -->
+<section class="hero" [ngClass]="content.theme.heroClass || ''">
+  <div class="hero-bg">
+    <img [src]="content.hero.image.src" [alt]="content.hero.image.alt" [title]="content.hero.image.alt" class="bg-image">
+    <div class="hero-overlay"></div>
+    <div class="technical-overlay"></div>
+  </div>
+  <div class="hero-content">
+    <h1 class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold">{{ content.hero.title }}</h1>
+    <p class="subtitle flex items-center gap-3">
+      <img [src]="content.hero.subtitleIcon.src" [alt]="content.hero.subtitleIcon.alt" class="inline-block h-6 w-6">
+      {{ content.hero.subtitle }}
+    </p>
+    <p class="hero-description mt-4">{{ content.hero.description }}</p>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="challenges">
+  <div class="container">
+    <div class="section-icon">{{ content.intro.icon }}</div>
+    <h2>{{ content.intro.title }}</h2>
+    <p class="section-intro">{{ content.intro.text }}</p>
+    <div class="capabilities-list">
+      <div class="capability-item" *ngFor="let point of content.intro.points">▹ {{ point }}</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTEXT IMAGE -->
+<section class="context-image-section" *ngIf="content.contextImage as img">
+  <div class="context-image-container">
+    <div class="service-context-image">
+      <img [src]="img.src" [alt]="img.alt" [title]="img.alt" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section class="advantage">
+  <div class="container">
+    <h2>{{ content.approach.title }}</h2>
+    <div class="advantage-grid">
+      <div class="advantage-item" *ngFor="let item of content.approach.items">
+        <span class="advantage-label">{{ item.label }}</span>
+        <p>{{ item.text }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECT TYPES -->
+<section class="project-types">
+  <div class="container">
+    <h2>{{ content.projectTypes.title }}</h2>
+    <div class="types-grid">
+      <div class="type-item" *ngFor="let type of content.projectTypes.items">
+        <span class="type-icon">{{ type.icon }}</span>
+        <span>{{ type.label }}<small class="type-note" *ngIf="type.note">{{ type.note }}</small></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CORE SERVICES -->
+<section class="capabilities">
+  <div class="container">
+    <h2>{{ content.coreServices.title }}</h2>
+    <div class="capabilities-grid">
+      <div class="capability-column" *ngFor="let column of content.coreServices.columns">
+        <h3>{{ column.title }}</h3>
+        <ul>
+          <li *ngFor="let item of column.items">{{ item }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS & STANDARDS -->
+<section class="technology">
+  <div class="container">
+    <h2>{{ content.tools.title }}</h2>
+    <p class="tech-intro">{{ content.tools.intro }}</p>
+    <div class="tech-grid">
+      <div class="tech-badge animate-on-scroll" *ngFor="let tool of content.tools.items">
+        <span class="tech-icon">{{ tool.icon }}</span>
+        <h4>{{ tool.title }}</h4>
+        <p>{{ tool.text }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process">
+  <div class="container">
+    <h2>{{ content.process.title }}</h2>
+    <div class="process-timeline">
+      <div class="process-step" *ngFor="let step of content.process.steps; let i = index">
+        <div class="step-number">{{ i + 1 }}</div>
+        <h3>{{ step.label }}</h3>
+        <p>{{ step.text }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUALITY -->
+<section class="quality">
+  <div class="container">
+    <h2>{{ content.quality.title }}</h2>
+    <div class="quality-grid">
+      <div class="quality-item" *ngFor="let item of content.quality.items">
+        <h3>{{ item.label }}</h3>
+        <p>{{ item.text }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMITMENT -->
+<section class="commitment">
+  <div class="container">
+    <h2>{{ content.commitment.title }}</h2>
+    <div class="commitment-grid">
+      <div class="commitment-column" *ngFor="let column of content.commitment.columns">
+        <h3>{{ column.title }}</h3>
+        <ul>
+          <li *ngFor="let item of column.items">{{ item }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STANDARDS & JURISDICTIONS -->
+<section class="expertise">
+  <div class="container">
+    <h2>{{ content.expertise.title }}</h2>
+    <div class="expertise-grid">
+      <div class="expertise-column">
+        <h3>{{ content.expertise.standards.title }}</h3>
+        <ul>
+          <li *ngFor="let item of content.expertise.standards.items">{{ item }}</li>
+        </ul>
+      </div>
+      <div class="expertise-column">
+        <h3>{{ content.expertise.jurisdictions.title }}</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+          <ul class="space-y-2" *ngFor="let column of content.expertise.jurisdictions.columns">
+            <li *ngFor="let j of column"><span class="text-[#d5a021] font-bold" *ngIf="j.region">{{ j.region }}</span>{{ j.region ? ': ' : '' }}{{ j.text }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="container">
+    <p>{{ content.cta.text }}</p>
+    <div class="cta-buttons">
+      <a [routerLink]="content.cta.primary.link" class="cta-button primary">{{ content.cta.primary.label }}</a>
+      <a [routerLink]="content.cta.secondary.link" class="cta-button secondary">{{ content.cta.secondary.label }}</a>
+    </div>
+  </div>
+</section>
+
+<app-service-navigator [currentServiceId]="content.id"></app-service-navigator>

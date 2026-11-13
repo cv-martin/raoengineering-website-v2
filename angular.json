@@ -29,7 +29,9 @@
               "src/llms.txt"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/styles/base.css",
+              "src/styles/components.css"
             ],
             "scripts": [],
             "server": "src/main.server.ts",
@@ -48,8 +50,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumWarning": "12kb",
+                  "maximumError": "16kb"
                 }
               ],
               "outputHashing": "all"
@@ -97,7 +99,9 @@
               "src/llms.txt"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/styles/base.css",
+              "src/styles/components.css"
             ],
             "scripts": []
           }

@@ -28,12 +28,7 @@ export class ServicesComponent {
         { phase: 'Build', description: 'Construction administration and closeout.' }
       ],
       solutions: ['Site Planning', 'Grading & Drainage', 'Utility Design', 'Roadway Design'],
-      strategies: ['Community Focused', 'Environmentally Conscious', 'Maximize Land Value'],
-      valueProps: [
-        { label: 'Time Saved', value: '20%' },
-        { label: 'Plot Use', value: 'Max' },
-        { label: 'Value', value: 'High' }
-      ]
+      strategies: ['Community Focused', 'Environmentally Conscious', 'Maximize Land Value']
     },
     {
       id: 'water-resources',
@@ -48,12 +43,7 @@ export class ServicesComponent {
         { phase: 'Construction', description: 'Implementation oversight and quality assurance.' }
       ],
       solutions: ['Stormwater Management', 'Floodplain Analysis', 'Drainage Design', 'Water Quality'],
-      strategies: ['Sustainable Design', 'Regulatory Compliance', 'Cost-Effective Solutions'],
-      valueProps: [
-        { label: 'Efficiency', value: '+30%' },
-        { label: 'Compliance', value: '100%' },
-        { label: 'ROI', value: 'High' }
-      ]
+      strategies: ['Sustainable Design', 'Regulatory Compliance', 'Cost-Effective Solutions']
     },
     {
       id: 'transportation',
@@ -68,12 +58,7 @@ export class ServicesComponent {
         { phase: 'Execute', description: 'Construction support and inspection.' }
       ],
       solutions: ['Traffic Engineering', 'Roadway Design', 'Signalization', 'Access Management'],
-      strategies: ['Safety First', 'Efficient Flow', 'Future Proofing'],
-      valueProps: [
-        { label: 'Safety', value: 'A+' },
-        { label: 'Flow', value: 'Optimized' },
-        { label: 'Connect', value: 'Seamless' }
-      ]
+      strategies: ['Safety First', 'Efficient Flow', 'Future Proofing']
     },
     {
       id: 'environmental',
@@ -88,32 +73,22 @@ export class ServicesComponent {
         { phase: 'Monitor', description: 'Ongoing compliance and environmental stewardship.' }
       ],
       solutions: ['Environmental Assessments', 'Wetland Delineation', 'Permitting', 'Compliance'],
-      strategies: ['Sustainability', 'Conservation', 'Regulatory Navigation'],
-      valueProps: [
-        { label: 'Impact', value: 'Low' },
-        { label: 'Compliance', value: 'Full' },
-        { label: 'Legacy', value: 'Green' }
-      ]
+      strategies: ['Sustainability', 'Conservation', 'Regulatory Navigation']
     },
     {
       id: 'permitting',
       title: 'Permitting',
       icon: 'assets/permitting-focus.png',
       iconSubtle: 'assets/icon_permitting_approval.png',
-      description: 'Streamlining the regulatory process to accelerate project timelines.',
+      description: 'Managing the regulatory process from submittal through approval.',
       timeline: [
         { phase: 'Review', description: 'Code analysis and requirement identification.' },
         { phase: 'Prepare', description: 'Application preparation and documentation.' },
         { phase: 'Submit', description: 'Agency submission and coordination.' },
         { phase: 'Approve', description: 'Securing necessary permits and approvals.' }
       ],
-      solutions: ['Permit Expediting', 'Code Consulting', 'Agency Coordination', 'Variance Requests'],
-      strategies: ['Proactive Approach', 'Expert Knowledge', 'Relationship Building'],
-      valueProps: [
-        { label: 'Speed', value: 'Fast' },
-        { label: 'Approval', value: 'Guaranteed' },
-        { label: 'Hassle', value: 'Zero' }
-      ]
+      solutions: ['Permit Coordination', 'Code Consulting', 'Agency Coordination', 'Variance Requests'],
+      strategies: ['Proactive Approach', 'Expert Knowledge', 'Relationship Building']
     }
   ];
 

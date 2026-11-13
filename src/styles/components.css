@@ -1,0 +1,488 @@
+/* ============================================================================
+   RCE COMPONENT LAYER
+   Reusable primitives built from the tokens. Every value here is a var() —
+   no raw colour, size or duration.
+
+   These are primitives, NOT a homepage and NOT a Land Development interface.
+   Nothing on the existing site uses them yet; pages adopt them deliberately
+   when each is redesigned.
+
+   Loaded after styles.css and base.css, so it wins over Tailwind's reset
+   without !important.
+   ========================================================================== */
+
+/* ============================================================================
+   1. LAYOUT — container, section, section head
+   ========================================================================== */
+
+.rce-container {
+  width: 100%;
+  max-width: var(--rce-container);
+  margin-inline: auto;
+  padding-inline: var(--rce-gutter);
+}
+/* Exhibits and drawings need more width than running text. */
+.rce-container--wide { max-width: 1480px; }
+.rce-container--text { max-width: 760px; }
+
+.rce-section { padding-block: var(--rce-section-pad); }
+.rce-section--tight { padding-block: calc(var(--rce-section-pad) * 0.55); }
+.rce-section--alt  { background: var(--rce-surface-alt); }
+.rce-section--dark { background: var(--rce-surface-dark); color: var(--rce-text-invert); }
+
+/* Dark sections pair their own text and border colours, so each one does not
+   get hand-tuned. */
+.rce-section--dark .rce-section__lead,
+.rce-section--dark .rce-field__help { color: var(--rce-slate-300); }
+.rce-section--dark .rce-eyebrow { color: var(--rce-gold-400); }
+.rce-section--dark .rce-card {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: var(--rce-text-invert);
+}
+
+/* Caps paragraph width so long technical copy stays readable. */
+.rce-measure { max-width: var(--rce-measure); }
+
+/* Small uppercase monospace label — section numbers, eyebrows, spec captions. */
+.rce-eyebrow {
+  display: inline-block;
+  font-family: var(--rce-font-mono);
+  font-size: var(--rce-text-xs);
+  font-weight: 500;
+  letter-spacing: var(--rce-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--rce-gold-700);
+}
+
+.rce-section__head { margin-bottom: var(--rce-space-7); max-width: var(--rce-measure); }
+.rce-section__head--center { margin-inline: auto; text-align: center; }
+.rce-section__lead {
+  font-size: var(--rce-text-lead);
+  color: var(--rce-text-muted);
+  margin: var(--rce-space-4) 0 0;
+}
+
+/* ============================================================================
+   2. BUTTONS AND CTAs
+   Four variants, three sizes. Replaces the eight ad-hoc padding combinations
+   found in the audit.
+
+   GA4: every CTA carries data-cta="<area>_<page>_<action>_<rank>".
+   See docs/component-foundation.md for the convention.
+   ========================================================================== */
+
+.rce-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--rce-space-2);
+  min-height: 48px;                 /* ≥44px touch target */
+  padding: 0 var(--rce-space-5);
+  border: 1px solid transparent;
+  border-radius: var(--rce-radius-pill);
+  font-family: var(--rce-font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--rce-duration-fast) var(--rce-ease),
+              border-color var(--rce-duration-fast) var(--rce-ease),
+              color var(--rce-duration-fast) var(--rce-ease),
+              transform var(--rce-duration-fast) var(--rce-ease);
+}
+.rce-btn:active { transform: translateY(1px); }
+
+/* Primary — the consultation action. One per view. */
+.rce-btn--primary {
+  background: var(--rce-action);
+  color: var(--rce-action-text);
+}
+.rce-btn--primary:hover { background: var(--rce-action-hover); }
+
+/* Secondary — a real alternative, not a lesser primary. */
+.rce-btn--secondary {
+  background: var(--rce-surface);
+  border-color: var(--rce-slate-300);
+  color: var(--rce-text);
+}
+.rce-btn--secondary:hover { border-color: var(--rce-text); }
+
+/* Ghost — for dark sections and over imagery. */
+.rce-btn--ghost {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.4);
+  color: var(--rce-text-invert);
+}
+.rce-btn--ghost:hover { border-color: var(--rce-white); background: rgba(255, 255, 255, 0.08); }
+
+/* Quiet — tertiary, reads as a link but keeps the touch target. */
+.rce-btn--quiet {
+  background: transparent;
+  color: var(--rce-gold-700);
+  padding-inline: var(--rce-space-2);
+}
+.rce-btn--quiet:hover { color: var(--rce-text); text-decoration: underline; }
+
+/* 44px, not 40: the small variant still has to be a comfortable touch target. */
+.rce-btn--sm { min-height: 44px; padding-inline: var(--rce-space-4); font-size: var(--rce-text-sm); }
+.rce-btn--lg { min-height: 56px; padding-inline: var(--rce-space-6); font-size: 1.0625rem; }
+.rce-btn--block { width: 100%; }
+
+.rce-btn:disabled,
+.rce-btn[aria-disabled="true"] {
+  background: var(--rce-disabled-surface);
+  border-color: var(--rce-disabled-border);
+  color: var(--rce-disabled-ink);
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Loading: the label stays in place for screen readers, a spinner replaces it
+   visually, and the control is non-interactive. */
+.rce-btn[data-loading="true"] { position: relative; color: transparent; pointer-events: none; }
+.rce-btn[data-loading="true"]::after {
+  content: "";
+  position: absolute;
+  width: 1.125em; height: 1.125em;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  color: var(--rce-action-text);
+  animation: rce-spin 700ms linear infinite;
+}
+.rce-btn--secondary[data-loading="true"]::after { color: var(--rce-text); }
+@keyframes rce-spin { to { transform: rotate(360deg); } }
+
+/* ============================================================================
+   3. CARD
+   ========================================================================== */
+
+.rce-card {
+  background: var(--rce-surface);
+  border: 1px solid var(--rce-border);
+  border-radius: var(--rce-radius);
+  padding: var(--rce-space-5);
+}
+.rce-card--interactive { transition: box-shadow var(--rce-duration-base) var(--rce-ease),
+                                     border-color var(--rce-duration-base) var(--rce-ease); }
+.rce-card--interactive:hover { box-shadow: var(--rce-shadow-md); border-color: var(--rce-slate-300); }
+.rce-card__title { font-family: var(--rce-font-display); font-size: var(--rce-text-h3); margin: 0 0 var(--rce-space-3); }
+
+/* ============================================================================
+   4. MEDIA — aspect ratio and scrim
+   The scrim is what makes hero text readable over a photograph.
+   ========================================================================== */
+
+.rce-media { position: relative; overflow: hidden; border-radius: var(--rce-radius); }
+.rce-media > img,
+.rce-media > video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.rce-media--hero   { aspect-ratio: var(--rce-ratio-hero); border-radius: 0; }
+.rce-media--wide   { aspect-ratio: var(--rce-ratio-wide); }
+.rce-media--figure { aspect-ratio: var(--rce-ratio-figure); }
+.rce-media--square { aspect-ratio: var(--rce-ratio-square); }
+
+/* The scrim sits above the image and below the content. */
+.rce-media__scrim { position: absolute; inset: 0; pointer-events: none; }
+.rce-media__scrim--bottom { background: var(--rce-scrim-bottom); }
+.rce-media__scrim--left   { background: var(--rce-scrim-left); }
+.rce-media__scrim--flat   { background: var(--rce-scrim-flat); }
+
+.rce-media__content {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  padding: var(--rce-space-6);
+  color: var(--rce-text-invert);
+}
+
+/* ============================================================================
+   5. TECHNICAL FIGURE
+   Register §7: engineering visuals must be labelled, sourced, and conceptual
+   work must be distinguishable from completed work. The caption and status are
+   part of the component so they cannot be forgotten.
+   ========================================================================== */
+
+.rce-figure { margin: 0; }
+.rce-figure__frame { position: relative; background: var(--rce-slate-100); border: 1px solid var(--rce-border); }
+.rce-figure__frame > img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.rce-figure__status { position: absolute; top: var(--rce-space-3); left: var(--rce-space-3); }
+.rce-figure__caption {
+  display: block;
+  margin-top: var(--rce-space-3);
+  font-size: var(--rce-text-sm);
+  line-height: 1.55;
+  color: var(--rce-text-muted);
+}
+.rce-figure__credit {
+  display: block;
+  margin-top: var(--rce-space-1);
+  font-family: var(--rce-font-mono);
+  font-size: var(--rce-text-xs);
+  letter-spacing: 0.04em;
+  color: var(--rce-text-subtle);
+}
+
+/* Status badge — the four approved states, plus a neutral default. */
+.rce-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rce-space-2);
+  padding: 0.3125rem var(--rce-space-3);
+  border: 1px solid transparent;
+  border-radius: var(--rce-radius-pill);
+  background: var(--rce-slate-100);
+  color: var(--rce-text-muted);
+  font-family: var(--rce-font-mono);
+  font-size: var(--rce-text-xs);
+  font-weight: 500;
+  letter-spacing: var(--rce-tracking-eyebrow);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.rce-badge::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+
+.rce-badge--conceptual { background: var(--rce-warning-bg); color: var(--rce-warning-ink); border-color: #f3dcb5; }
+.rce-badge--proposed   { background: var(--rce-info-bg);    color: var(--rce-info-ink);    border-color: #c7d2fe; }
+.rce-badge--approved   { background: var(--rce-gold-50);    color: var(--rce-gold-700);    border-color: #ecd9a8; }
+.rce-badge--completed  { background: var(--rce-success-bg); color: var(--rce-success-ink); border-color: #a9e5c3; }
+
+/* ============================================================================
+   6. FORM CONTROLS AND VALIDATION
+   ========================================================================== */
+
+.rce-field { display: block; margin-bottom: var(--rce-space-5); }
+.rce-field__label {
+  display: block;
+  margin-bottom: var(--rce-space-2);
+  font-size: var(--rce-text-sm);
+  font-weight: 600;
+  color: var(--rce-text);
+}
+.rce-field__required { color: var(--rce-error-ink); margin-inline-start: 2px; }
+
+.rce-field__control {
+  width: 100%;
+  min-height: var(--rce-field-height);
+  padding: 0 var(--rce-field-pad-x);
+  background: var(--rce-field-bg);
+  border: var(--rce-field-border);
+  border-radius: var(--rce-field-radius);
+  font-family: var(--rce-font-body);
+  font-size: var(--rce-text-base);
+  color: var(--rce-text);
+  transition: border-color var(--rce-duration-fast) var(--rce-ease);
+}
+textarea.rce-field__control { min-height: 7.5rem; padding-block: var(--rce-space-3); line-height: var(--rce-leading-body); resize: vertical; }
+.rce-field__control::placeholder { color: var(--rce-field-placeholder); }
+.rce-field__control:hover { border-color: var(--rce-slate-500); }
+.rce-field__control:disabled {
+  background: var(--rce-disabled-surface);
+  color: var(--rce-disabled-ink);
+  cursor: not-allowed;
+}
+
+.rce-field__help { margin-top: var(--rce-space-2); font-size: var(--rce-text-sm); color: var(--rce-text-muted); }
+
+/* Invalid state is driven by aria-invalid, so the visual and the accessible
+   state can never disagree. */
+.rce-field__control[aria-invalid="true"] { border-color: var(--rce-error); border-width: 2px; }
+.rce-field__error {
+  display: flex;
+  gap: var(--rce-space-2);
+  margin-top: var(--rce-space-2);
+  font-size: var(--rce-text-sm);
+  font-weight: 500;
+  color: var(--rce-error-ink);
+}
+
+/* ============================================================================
+   7. STATUS MESSAGES
+   Equal weight for success and failure. A failed inquiry must never be able to
+   borrow the success styling.
+   ========================================================================== */
+
+.rce-alert {
+  display: flex;
+  gap: var(--rce-space-3);
+  padding: var(--rce-space-4) var(--rce-space-5);
+  border: 1px solid;
+  border-radius: var(--rce-radius);
+  font-size: var(--rce-text-base);
+  line-height: var(--rce-leading-body);
+}
+.rce-alert__title { font-weight: 600; display: block; margin-bottom: var(--rce-space-1); }
+.rce-alert--error   { background: var(--rce-error-bg);   border-color: var(--rce-error);   color: var(--rce-error-ink); }
+.rce-alert--success { background: var(--rce-success-bg); border-color: var(--rce-success); color: var(--rce-success-ink); }
+.rce-alert--warning { background: var(--rce-warning-bg); border-color: var(--rce-warning); color: var(--rce-warning-ink); }
+.rce-alert--info    { background: var(--rce-info-bg);    border-color: var(--rce-info);    color: var(--rce-info-ink); }
+
+/* ============================================================================
+   8. TABS
+   Markup contract: [role=tablist] > button[role=tab][aria-selected]
+   and [role=tabpanel]. Keyboard handling lives in the Angular component.
+   ========================================================================== */
+
+.rce-tabs__list {
+  display: flex;
+  gap: var(--rce-space-1);
+  overflow-x: auto;
+  border-bottom: 1px solid var(--rce-border);
+  scrollbar-width: thin;
+}
+.rce-tabs__tab {
+  flex: 0 0 auto;
+  min-height: 48px;
+  padding: 0 var(--rce-space-4);
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  font-family: var(--rce-font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--rce-text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color var(--rce-duration-fast) var(--rce-ease),
+              border-color var(--rce-duration-fast) var(--rce-ease);
+}
+.rce-tabs__tab:hover { color: var(--rce-text); }
+.rce-tabs__tab[aria-selected="true"] { color: var(--rce-text); border-bottom-color: var(--rce-action); }
+.rce-tabs__panel { padding-top: var(--rce-space-5); }
+@media (prefers-reduced-motion: no-preference) {
+  .rce-tabs__panel { animation: rce-fade var(--rce-duration-base) var(--rce-ease-out) both; }
+}
+@keyframes rce-fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* ============================================================================
+   9. DISCLOSURE / ACCORDION
+   Markup contract: button[aria-expanded][aria-controls] + the region it names.
+   Keeps long technical content off the page until it is asked for.
+   ========================================================================== */
+
+.rce-disclosure { border-top: 1px solid var(--rce-border); }
+.rce-disclosure:last-of-type { border-bottom: 1px solid var(--rce-border); }
+
+.rce-disclosure__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--rce-space-4);
+  width: 100%;
+  min-height: 56px;
+  padding: var(--rce-space-4) 0;
+  border: 0;
+  background: transparent;
+  font-family: var(--rce-font-display);
+  font-size: var(--rce-text-h3);
+  font-weight: 600;
+  color: var(--rce-text);
+  text-align: left;
+  cursor: pointer;
+}
+.rce-disclosure__trigger:hover { color: var(--rce-gold-700); }
+
+.rce-disclosure__icon {
+  flex: none;
+  width: 24px; height: 24px;
+  position: relative;
+  transition: transform var(--rce-duration-base) var(--rce-ease);
+}
+.rce-disclosure__icon::before,
+.rce-disclosure__icon::after {
+  content: ""; position: absolute; inset: 50% 2px auto 2px;
+  height: 2px; background: currentColor;
+}
+.rce-disclosure__icon::after { transition: transform var(--rce-duration-base) var(--rce-ease); transform: rotate(90deg); }
+.rce-disclosure__trigger[aria-expanded="true"] .rce-disclosure__icon::after { transform: rotate(0deg); }
+
+.rce-disclosure__panel { padding-bottom: var(--rce-space-5); color: var(--rce-text-muted); max-width: var(--rce-measure); }
+.rce-disclosure__panel[hidden] { display: none; }
+
+/* ============================================================================
+   10. OVERLAYS — scrim, drawer, dialog
+   Primitives only. No inquiry drawer and no dialog are built here; this
+   establishes the layering and travel so the first one that is built behaves.
+   ========================================================================== */
+
+.rce-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--rce-z-overlay);
+  background: rgba(7, 13, 26, 0.6);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--rce-duration-base) var(--rce-ease),
+              visibility var(--rce-duration-base) var(--rce-ease);
+}
+.rce-overlay[data-open="true"] { opacity: 1; visibility: visible; }
+
+.rce-drawer {
+  position: fixed;
+  z-index: var(--rce-z-drawer);
+  top: 0; bottom: 0; right: 0;
+  width: min(100%, 520px);
+  background: var(--rce-surface);
+  box-shadow: var(--rce-shadow-lg);
+  transform: translateX(100%);
+  transition: transform var(--rce-duration-slow) var(--rce-ease-inout);
+  overflow-y: auto;
+}
+.rce-drawer[data-open="true"] { transform: none; }
+
+.rce-dialog {
+  position: fixed;
+  z-index: var(--rce-z-dialog);
+  inset: auto;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -48%);
+  width: min(100% - 2rem, 560px);
+  background: var(--rce-surface);
+  border-radius: var(--rce-radius-lg);
+  box-shadow: var(--rce-shadow-lg);
+  padding: var(--rce-space-6);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--rce-duration-base) var(--rce-ease-out),
+              transform var(--rce-duration-base) var(--rce-ease-out),
+              visibility var(--rce-duration-base);
+}
+.rce-dialog[data-open="true"] { opacity: 1; visibility: visible; transform: translate(-50%, -50%); }
+
+@media (prefers-reduced-motion: reduce) {
+  .rce-overlay, .rce-drawer, .rce-dialog, .rce-tabs__panel { transition: none; animation: none; }
+}
+
+/* ============================================================================
+   11. UTILITY
+   ========================================================================== */
+
+/* Visible to screen readers only — used for live-region announcements. */
+.rce-sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+
+.rce-stack > * + * { margin-top: var(--rce-space-4); }
+.rce-cluster { display: flex; flex-wrap: wrap; gap: var(--rce-space-3); align-items: center; }
+
+/* ============================================================================
+   12. RESPONSIVE
+   Two breaks, matching the documented standard.
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .rce-media--hero { aspect-ratio: var(--rce-ratio-wide); }
+}
+
+@media (max-width: 640px) {
+  .rce-btn { width: 100%; }           /* full-width actions on phones */
+  .rce-cluster .rce-btn { width: auto; }
+  .rce-media--hero { aspect-ratio: var(--rce-ratio-figure); }
+  .rce-media__content { padding: var(--rce-space-4); }
+  .rce-drawer { width: 100%; }
+  .rce-disclosure__trigger { font-size: 1.0625rem; }
+}

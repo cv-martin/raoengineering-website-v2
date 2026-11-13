@@ -1,3 +1,10 @@
+/*
+ * Shared stylesheet for every service page.
+ * Per-service differences come only from these custom properties, set by ServicePageComponent
+ * from the service's theme: --service-accent, --service-accent-dark, --service-accent-rgb,
+ * --service-texture. Generated from the Land Development stylesheet with no rule changes.
+ */
+
 /* THE "MIRROR SKELETON" CSS - LAND DEVELOPMENT NATURE */
 
 .hero {
@@ -7,7 +14,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-start; /* Left aligned content */
-    background: #1e3a8a;
+    background: var(--service-accent);
     /* Navy 900 */
     color: #ffffff;
     text-align: left; /* Text aligns left */
@@ -120,7 +127,7 @@
     display: block;
     font-size: 2.5rem;
     font-weight: 700;
-    color: #1e3a8a;
+    color: var(--service-accent);
     /* Consistent Navy theme */
     line-height: 1;
     margin-bottom: 0.5rem;
@@ -166,7 +173,7 @@
 .challenge-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 25px -5px rgba(51, 65, 85, 0.1);
-    border-color: #1e3a8a;
+    border-color: var(--service-accent);
 }
 
 .challenge-icon {
@@ -246,7 +253,7 @@
 
 .advantage-item {
     background: #ffffff;
-    border-left: 4px solid #1e3a8a;
+    border-left: 4px solid var(--service-accent);
     padding: 1.5rem;
     border-radius: 4px;
 }
@@ -255,7 +262,7 @@
     display: block;
     font-size: 0.85rem;
     font-weight: 700;
-    color: #1e3a8a;
+    color: var(--service-accent);
     text-transform: uppercase;
     letter-spacing: 0.08em;
     margin-bottom: 0.5rem;
@@ -307,7 +314,7 @@
 
 .type-item:hover {
     background: #ffffff;
-    border-color: #1e3a8a;
+    border-color: var(--service-accent);
     transform: translateX(4px);
 }
 
@@ -315,10 +322,19 @@
     font-size: 1.5rem;
 }
 
+/* Second line on project-type cards: real locations from RCE's portfolio. */
+.type-note {
+    display: block;
+    margin-top: 2px;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: #64748b;
+}
+
 .capabilities {
     padding: 5rem 0;
     background: #ffffff;
-    background-image: url('/assets/generated-images/bg_texture_land.png');
+    background-image: var(--service-texture);
     background-size: cover;
     background-position: center;
     background-blend-mode: overlay;
@@ -411,7 +427,7 @@
 .tech-badge:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px -5px rgba(51, 65, 85, 0.1);
-    border-color: #1e3a8a;
+    border-color: var(--service-accent);
 }
 
 .tech-icon {
@@ -468,7 +484,7 @@
     justify-content: center;
     width: 40px;
     height: 40px;
-    background: #1e3a8a;
+    background: var(--service-accent);
     color: #ffffff;
     border-radius: 50%;
     margin: 0 auto 1.5rem auto;
@@ -512,7 +528,7 @@
 }
 
 .quality-item h3 {
-    color: #1e3a8a;
+    color: var(--service-accent);
     font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
@@ -567,7 +583,7 @@
 
 .commitment-column li::before {
     content: "→";
-    color: #1e3a8a;
+    color: var(--service-accent);
     position: absolute;
     left: 0;
 }
@@ -600,7 +616,7 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin-bottom: 1.5rem;
-    border-left: 4px solid #1e3a8a;
+    border-left: 4px solid var(--service-accent);
     padding-left: 1rem;
 }
 
@@ -652,12 +668,12 @@
 }
 
 .cta-button.primary {
-    background: #1e3a8a;
+    background: var(--service-accent);
     color: #ffffff;
 }
 
 .cta-button.primary:hover {
-    background: #1e40af;
+    background: var(--service-accent-dark);
 }
 
 .cta-button.secondary {
@@ -714,4 +730,69 @@
     .cta-buttons {
         flex-direction: column;
     }
+}
+
+/* ---- Section intro, hero description and capability list ---- */
+/* Section Icon Styling */
+.section-icon {
+    font-size: 3rem;
+    text-align: center;
+    margin: 0 auto 1.5rem;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--service-accent) 0%, var(--service-accent-dark) 100%);
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(var(--service-accent-rgb), 0.2);
+    transition: all 0.3s ease;
+}
+
+.section-icon:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 8px 24px rgba(var(--service-accent-rgb), 0.3);
+}
+
+/* Hero Description */
+.hero .hero-description {
+    font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.7;
+    margin-top: 1rem;
+    max-width: 550px;
+}
+
+/* Section Intro Text */
+.section-intro {
+    font-size: 1.1rem;
+    color: #64748b;
+    line-height: 1.7;
+    margin: 0 auto 2.5rem;
+    max-width: 800px;
+    text-align: center;
+}
+
+/* Capabilities List */
+.capabilities-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.capability-item {
+    padding: 1rem 1.5rem;
+    background: #f8fafc;
+    border-left: 3px solid #d5a021;
+    font-size: 1rem;
+    color: #334155;
+    transition: all 0.3s ease;
+}
+
+.capability-item:hover {
+    background: #ffffff;
+    border-left-color: #b8860b;
+    transform: translateX(4px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }

@@ -18,6 +18,8 @@ export interface SeoData {
   description: string;
   /** Optional absolute or site-relative share image. Defaults to the logo. */
   image?: string;
+  /** Keep this page out of search results (e.g. content awaiting verification). */
+  noindex?: boolean;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -47,6 +49,12 @@ export class SeoService {
     this.meta.updateTag({ name: 'twitter:image', content: image });
 
     this.setCanonical(canonical);
+
+    if (seo.noindex) {
+      this.meta.updateTag({ name: 'robots', content: 'noindex, follow' });
+    } else {
+      this.meta.removeTag("name='robots'");
+    }
   }
 
   /** Strips query strings and fragments; keeps a trailing slash only on the root. */

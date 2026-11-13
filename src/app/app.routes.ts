@@ -105,7 +105,10 @@ export const routes: Routes = [
       seo: {
         title: "Project Detail | Rao's Consulting Engineers",
         description:
-          "Civil engineering project detail from Rao's Consulting Engineers, a Texas firm working in land development, drainage, transportation and permitting."
+          "Civil engineering project detail from Rao's Consulting Engineers, a Texas firm working in land development, drainage, transportation and permitting.",
+        // Project detail pages stay out of search results until each case study
+        // is verified and approved for publication (portfolio phase).
+        noindex: true
       } satisfies SeoData
     }
   },

@@ -7,5 +7,4 @@ export interface Service {
   timeline: { phase: string; description: string }[];
   solutions: string[];
   strategies: string[];
-  valueProps: { label: string; value: string }[];
 }

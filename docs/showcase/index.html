@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>RCE component foundation — showcase</title>
+
+<!-- Self-hosted faces, same as the app. No third-party request. -->
+<link rel="stylesheet" href="fonts-preview.css">
+
+<!-- The real framework files, not a copy. What renders here is what the app gets. -->
+<link rel="stylesheet" href="../../src/styles/tokens.css">
+<link rel="stylesheet" href="../../src/styles/components.css">
+
+<style>
+  /* Showcase chrome only — not part of the framework. */
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--rce-surface);
+    color: var(--rce-text);
+    font-family: var(--rce-font-body);
+    font-size: var(--rce-text-base);
+    line-height: var(--rce-leading-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--rce-font-display);
+    line-height: var(--rce-leading-tight);
+    letter-spacing: var(--rce-tracking-tight);
+    font-weight: 600;
+    margin: 0;
+  }
+  .rce-editorial { font-family: var(--rce-font-editorial); letter-spacing: var(--rce-tracking-editorial); }
+  :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+    outline: 3px solid var(--rce-focus); outline-offset: 2px; border-radius: var(--rce-radius-sm);
+  }
+  img { max-width: 100%; display: block; }
+
+  .doc-head { background: var(--rce-navy-950); color: #fff; padding: var(--rce-space-7) 0; }
+  .doc-head h1 { font-size: clamp(2rem, 4vw, 3rem); }
+  .doc-head p { color: var(--rce-slate-300); max-width: 60ch; margin: var(--rce-space-4) 0 0; }
+  .doc-block { border-top: 1px solid var(--rce-border); padding-block: var(--rce-space-7); }
+  .doc-block > h2 { font-size: 1.5rem; margin-bottom: var(--rce-space-2); }
+  .doc-note { color: var(--rce-text-muted); font-size: var(--rce-text-sm); max-width: 70ch; margin: 0 0 var(--rce-space-5); }
+  .doc-label {
+    font-family: var(--rce-font-mono); font-size: var(--rce-text-xs);
+    letter-spacing: .1em; text-transform: uppercase; color: var(--rce-text-subtle);
+    margin: var(--rce-space-5) 0 var(--rce-space-3);
+  }
+  .doc-grid { display: grid; gap: var(--rce-space-5); grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .doc-swatch { border: 1px solid var(--rce-border); border-radius: var(--rce-radius); overflow: hidden; }
+  .doc-swatch__chip { height: 64px; }
+  .doc-swatch__meta { padding: var(--rce-space-3); font-family: var(--rce-font-mono); font-size: var(--rce-text-xs); }
+  code { font-family: var(--rce-font-mono); font-size: .8125rem; background: var(--rce-slate-100); padding: .15em .4em; border-radius: 4px; }
+  table.doc-table { width: 100%; border-collapse: collapse; font-size: var(--rce-text-sm); }
+  table.doc-table th, table.doc-table td { text-align: left; padding: var(--rce-space-3); border-bottom: 1px solid var(--rce-border); vertical-align: top; }
+  table.doc-table th { font-family: var(--rce-font-mono); font-size: var(--rce-text-xs); text-transform: uppercase; letter-spacing: .08em; color: var(--rce-text-subtle); }
+</style>
+</head>
+
+<body>
+
+<header class="doc-head">
+  <div class="rce-container">
+    <span class="rce-eyebrow" style="color:var(--rce-gold-400)">RCE design system</span>
+    <h1>Component foundation</h1>
+    <p>Reusable primitives built from the approved tokens. This page is a reference, not a
+       homepage and not the Land Development interface. Nothing on the live site uses these yet.</p>
+  </div>
+</header>
+
+<main class="rce-container">
+
+  <!-- ==================================================================== -->
+  <section class="doc-block">
+    <h2>1 · Buttons and CTAs</h2>
+    <p class="doc-note">Four variants and three sizes, replacing the eight ad-hoc padding
+      combinations found in the audit. Minimum target 48px. Every CTA carries
+      <code>data-cta</code> for GA4.</p>
+
+    <p class="doc-label">Variants</p>
+    <div class="rce-cluster">
+      <a class="rce-btn rce-btn--primary" href="#" data-cta="hero_home_consult_primary">Request a consultation</a>
+      <a class="rce-btn rce-btn--secondary" href="#" data-cta="hero_home_portfolio_secondary">View portfolio</a>
+      <a class="rce-btn rce-btn--quiet" href="#" data-cta="section_home_detail_tertiary">Read the detail →</a>
+    </div>
+
+    <p class="doc-label">On a dark surface — ghost variant</p>
+    <div style="background:var(--rce-surface-dark);padding:var(--rce-space-5);border-radius:var(--rce-radius)">
+      <div class="rce-cluster">
+        <a class="rce-btn rce-btn--primary" href="#" data-cta="section_landdev_consult_primary">Start a project</a>
+        <a class="rce-btn rce-btn--ghost" href="#" data-cta="section_landdev_call_secondary">Talk to an engineer</a>
+      </div>
+    </div>
+
+    <p class="doc-label">Sizes</p>
+    <div class="rce-cluster">
+      <button class="rce-btn rce-btn--primary rce-btn--sm" type="button">Small</button>
+      <button class="rce-btn rce-btn--primary" type="button">Default</button>
+      <button class="rce-btn rce-btn--primary rce-btn--lg" type="button">Large</button>
+    </div>
+
+    <p class="doc-label">States</p>
+    <div class="rce-cluster">
+      <button class="rce-btn rce-btn--primary" type="button" disabled>Disabled</button>
+      <button class="rce-btn rce-btn--primary" type="button" data-loading="true" aria-busy="true">Submitting</button>
+      <button class="rce-btn rce-btn--secondary" type="button" disabled>Disabled secondary</button>
+    </div>
+    <p class="doc-note" style="margin-top:var(--rce-space-3)">The loading button keeps its label in
+      the accessibility tree and sets <code>aria-busy</code>; only the visual label is replaced.</p>
+  </section>
+
+  <!-- ==================================================================== -->
+  <section class="doc-block">
+    <h2>2 · Media, scrim and readable hero text</h2>
+    <p class="doc-note">The left pair is what the homepage does today: text straight onto a
+      photograph. The right pair adds one scrim token. This is the fix for the unreadable hero
+      headline, applied once in the system rather than per page.</p>
+
+    <div class="doc-grid">
+      <div>
+        <p class="doc-label">No scrim — current behaviour</p>
+        <div class="rce-media rce-media--wide">
+          <img src="../../src/assets/land v3.png" alt="Aerial view of a land development site under construction">
+          <div class="rce-media__content">
+            <span class="rce-eyebrow" style="color:#fff">Land development</span>
+            <h3 style="color:#fff;font-size:1.75rem">Engineering the Future of Texas</h3>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="doc-label">With <code>--rce-scrim-bottom</code></p>
+        <div class="rce-media rce-media--wide">
+          <img src="../../src/assets/land v3.png" alt="Aerial view of a land development site under construction">
+          <div class="rce-media__scrim rce-media__scrim--bottom"></div>
+          <div class="rce-media__content">
+            <span class="rce-eyebrow" style="color:var(--rce-gold-400)">Land development</span>
+            <h3 style="color:#fff;font-size:1.75rem">Engineering the Future of Texas</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="doc-label">Aspect ratios</p>
+    <table class="doc-table">
+      <tr><th>Token</th><th>Ratio</th><th>Use</th></tr>
+      <tr><td><code>--rce-ratio-hero</code></td><td>21 / 9</td><td>Page hero (16/9 on tablet, 4/3 on phone)</td></tr>
+      <tr><td><code>--rce-ratio-wide</code></td><td>16 / 9</td><td>Section imagery, video</td></tr>
+      <tr><td><code>--rce-ratio-figure</code></td><td>4 / 3</td><td>Drawings and exhibits</td></tr>
+      <tr><td><code>--rce-ratio-square</code></td><td>1 / 1</td><td>Portraits, thumbnails</td></tr>
+    </table>
+  </section>
+
+  <!-- ==================================================================== -->
+  <section class="doc-block">
+    <h2>3 · Technical figure</h2>
+    <p class="doc-note">Caption, status and alt text are <strong>required inputs</strong> on the
+      Angular component, so a drawing cannot be published unlabelled. Credit carries the source and
+      permission note. This is master plan §7 enforced by the system rather than by memory.</p>
+
+    <div class="doc-grid">
+      <figure class="rce-figure">
+        <div class="rce-figure__frame rce-media rce-media--figure">
+          <img src="../../src/assets/generated-images/land_development.png" alt="Illustration of site grading equipment on a development site">
+          <span class="rce-figure__status rce-badge rce-badge--conceptual">Conceptual</span>
+        </div>
+        <figcaption class="rce-figure__caption">
+          Illustrative grading concept. Not to scale and not a construction document.
+          <span class="rce-figure__credit">Illustration · publication rights to be confirmed</span>
+        </figcaption>
+      </figure>
+
+      <figure class="rce-figure">
+        <div class="rce-figure__frame rce-media rce-media--figure">
+          <img src="../../src/assets/land v3.png" alt="Aerial view of a residential subdivision under construction">
+          <span class="rce-figure__status rce-badge rce-badge--conceptual">Conceptual</span>
+        </div>
+        <figcaption class="rce-figure__caption">
+          Illustrative site context. A placeholder for layout only &mdash; this is not an RCE project.
+          <span class="rce-figure__credit">Stock illustration &middot; not RCE work product</span>
+        </figcaption>
+      </figure>
+    </div>
+
+    <p class="doc-label">The four approved states</p>
+    <div class="rce-cluster">
+      <span class="rce-badge rce-badge--conceptual">Conceptual</span>
+      <span class="rce-badge rce-badge--proposed">Proposed</span>
+      <span class="rce-badge rce-badge--approved">Approved</span>
+      <span class="rce-badge rce-badge--completed">Completed</span>
+    </div>
+  </section>
+
+  <!-- ==================================================================== -->
+  <section class="doc-block">
+    <h2>4 · Form controls and validation</h2>
+    <p class="doc-note">The invalid style is driven by <code>aria-invalid</code>, so what a sighted
+      user sees and what a screen reader announces can never disagree. Error and success carry equal
+      weight — master plan §6 requires that a failed inquiry can never borrow the success styling.</p>
+
+    <div class="doc-grid">
+      <div>
+        <label class="rce-field">
+          <span class="rce-field__label">Project location</span>
+          <input class="rce-field__control" type="text" placeholder="e.g. Cedar Park, TX">
+          <span class="rce-field__help">City or county is enough to start.</span>
+        </label>
+
+        <label class="rce-field">
+          <span class="rce-field__label">Work email <span class="rce-field__required" aria-hidden="true">*</span></span>
+          <input class="rce-field__control" type="email" value="not-an-email" aria-invalid="true" aria-describedby="err-email">
+          <span class="rce-field__error" id="err-email">
+            <span aria-hidden="true">⚠</span> Enter a valid email address so we can reply.
+          </span>
+        </label>
+
+        <label class="rce-field">
+          <span class="rce-field__label">Account manager</span>
+          <input class="rce-field__control" type="text" value="Assigned after review" disabled>
+        </label>
+      </div>
+
+      <div>
+        <label class="rce-field">
+          <span class="rce-field__label">What would you like help with?</span>
+          <textarea class="rce-field__control" placeholder="Briefly describe the site, constraints or scope."></textarea>
+        </label>
+
+        <p class="doc-label">Status messages</p>
+        <div class="rce-stack">
+          <div class="rce-alert rce-alert--success" role="status">
+            <div><span class="rce-alert__title">Inquiry received</span>
+              Shown only once delivery is confirmed by the backend.</div>
+          </div>
+          <div class="rce-alert rce-alert--error" role="alert">
+            <div><span class="rce-alert__title">We could not send that</span>
+              Your details are still here. Call 210-549-7557 or email rao&#64;raosengineering.com.</div>
+          </div>
+          <div class="rce-alert rce-alert--warning">
+            <div><span class="rce-alert__title">Conceptual exhibit</span>
+              Illustrative only. Not for construction.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================================================== -->
+  <section class="doc-block">
+    <h2>5 · Tabs</h2>
+    <p class="doc-note">WAI-ARIA tabs pattern: one tab in the tab order, arrow keys move and
+      activate, Home and End jump to the ends. Try it with the keyboard. The scaffolding for a
+      future service explorer — not the explorer itself.</p>
+
+    <div class="rce-tabs" id="demo-tabs">
+      <div class="rce-tabs__list" role="tablist" aria-label="Engineering topics">
+        <button class="rce-tabs__tab" role="tab" id="t-grading" aria-controls="p-grading" aria-selected="true" tabindex="0" data-cta="section_landdev_detail_tertiary">Grading &amp; drainage</button>
+        <button class="rce-tabs__tab" role="tab" id="t-utility" aria-controls="p-utility" aria-selected="false" tabindex="-1">Utilities</button>
+        <button class="rce-tabs__tab" role="tab" id="t-access" aria-controls="p-access" aria-selected="false" tabindex="-1">Access &amp; circulation</button>
+        <button class="rce-tabs__tab" role="tab" id="t-permit" aria-controls="p-permit" aria-selected="false" tabindex="-1">Permitting</button>
+      </div>
+      <div class="rce-tabs__panel" role="tabpanel" id="p-grading" aria-labelledby="t-grading" tabindex="0">
+        <p class="rce-measure" style="margin:0">Panel content is supplied by the page. The primitive
+          supplies structure, keyboard behaviour and the accessible names only.</p>
+      </div>
+      <div class="rce-tabs__panel" role="tabpanel" id="p-utility" aria-labelledby="t-utility" tabindex="0" hidden>
+        <p class="rce-measure" style="margin:0">Second panel.</p>
+      </div>
+      <div class="rce-tabs__panel" role="tabpanel" id="p-access" aria-labelledby="t-access" tabindex="0" hidden>
+        <p class="rce-measure" style="margin:0">Third panel.</p>
+      </div>
+      <div class="rce-tabs__panel" role="tabpanel" id="p-permit" aria-labelledby="t-permit" tabindex="0" hidden>
+        <p class="rce-measure" style="margin:0">Fourth panel.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================================================== -->
+  <section class="doc-block">
+    <h2>6 · Disclosure / accordion</h2>
+    <p class="doc-note">A button carrying <code>aria-expanded</code> controls the region it names.
+      Closed panels use <code>hidden</code>, so their content is out of the tab order and out of the
+      accessibility tree. This is how a technical page stays short without losing depth.</p>
+
+    <div id="demo-disclosures">
+      <div class="rce-disclosure">
+        <h3 style="margin:0">
+          <button type="button" class="rce-disclosure__trigger" id="d1-t" aria-expanded="false" aria-controls="d1-p">
+            <span>What does a feasibility review cover?</span>
+            <span class="rce-disclosure__icon" aria-hidden="true"></span>
+          </button>
+        </h3>
+        <div class="rce-disclosure__panel" role="region" id="d1-p" aria-labelledby="d1-t" hidden>
+          <p style="margin:0">Detail stays here until it is asked for, which keeps the page scannable
+            for a reader who only wants to know whether to call.</p>
+        </div>
+      </div>
+
+      <div class="rce-disclosure">
+        <h3 style="margin:0">
+          <button type="button" class="rce-disclosure__trigger" id="d2-t" aria-expanded="false" aria-controls="d2-p">
+            <span>Which jurisdictions do you work in?</span>
+            <span class="rce-disclosure__icon" aria-hidden="true"></span>
+          </button>
+        </h3>
+        <div class="rce-disclosure__panel" role="region" id="d2-p" aria-labelledby="d2-t" hidden>
+          <p style="margin:0">Second panel.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================================================== -->
+  <section class="doc-block">
+    <h2>7 · Overlays, layering and motion</h2>
+    <p class="doc-note">Primitives only — no inquiry drawer and no dialog are built here. This
+      establishes the layering and travel so the first one built behaves predictably. Escape closes,
+      and focus returns to the control that opened it.</p>
+
+    <div class="rce-cluster">
+      <button class="rce-btn rce-btn--secondary" type="button" id="open-drawer">Open drawer</button>
+      <button class="rce-btn rce-btn--secondary" type="button" id="open-dialog">Open dialog</button>
+    </div>
+
+    <p class="doc-label">Layering scale</p>
+    <table class="doc-table">
+      <tr><th>Token</th><th>Value</th><th>Use</th></tr>
+      <tr><td><code>--rce-z-raised</code></td><td>10</td><td>Lifted cards, sticky section heads</td></tr>
+      <tr><td><code>--rce-z-sticky</code></td><td>100</td><td>Site header</td></tr>
+      <tr><td><code>--rce-z-overlay</code></td><td>200</td><td>Scrim behind drawer or dialog</td></tr>
+      <tr><td><code>--rce-z-drawer</code></td><td>210</td><td>Inquiry drawer, mobile menu</td></tr>
+      <tr><td><code>--rce-z-dialog</code></td><td>220</td><td>Dialogs</td></tr>
+      <tr><td><code>--rce-z-toast</code></td><td>300</td><td>Transient messages</td></tr>
+    </table>
+
+    <p class="doc-label">Motion</p>
+    <table class="doc-table">
+      <tr><th>Token</th><th>Value</th><th>Use</th></tr>
+      <tr><td><code>--rce-duration-fast</code></td><td>120ms</td><td>Hover, focus, button press</td></tr>
+      <tr><td><code>--rce-duration-base</code></td><td>220ms</td><td>Disclosure, tab panel, fade</td></tr>
+      <tr><td><code>--rce-duration-slow</code></td><td>320ms</td><td>Drawer and dialog travel</td></tr>
+    </table>
+    <p class="doc-note" style="margin-top:var(--rce-space-3)">All of it is disabled under
+      <code>prefers-reduced-motion: reduce</code>.</p>
+  </section>
+
+  <!-- ==================================================================== -->
+  <section class="doc-block">
+    <h2>8 · Feedback colours</h2>
+    <p class="doc-note">Contrast of each ink on its own background is measured in
+      <code>docs/component-foundation.md</code>.</p>
+    <div class="doc-grid">
+      <div class="doc-swatch"><div class="doc-swatch__chip" style="background:var(--rce-error)"></div>
+        <div class="doc-swatch__meta">--rce-error<br>#b42318</div></div>
+      <div class="doc-swatch"><div class="doc-swatch__chip" style="background:var(--rce-success)"></div>
+        <div class="doc-swatch__meta">--rce-success<br>#067647</div></div>
+      <div class="doc-swatch"><div class="doc-swatch__chip" style="background:var(--rce-warning)"></div>
+        <div class="doc-swatch__meta">--rce-warning<br>#b54708</div></div>
+      <div class="doc-swatch"><div class="doc-swatch__chip" style="background:var(--rce-action)"></div>
+        <div class="doc-swatch__meta">--rce-action (brand gold)<br>#d5a021</div></div>
+    </div>
+  </section>
+
+  <!-- ==================================================================== -->
+  <section class="doc-block">
+    <h2>9 · Section and container</h2>
+    <p class="doc-note">One container (1280px), one wide variant for drawings, one text variant for
+      long reading. One section rhythm, replacing the four competing paddings in the audit.</p>
+  </section>
+
+</main>
+
+<section class="rce-section rce-section--dark">
+  <div class="rce-container">
+    <span class="rce-eyebrow">Dark section</span>
+    <h2 style="font-size:2rem;margin-top:var(--rce-space-3)">Dark surfaces pair their own colours</h2>
+    <p class="rce-section__lead">Text, borders, eyebrow and card treatment all shift together, so a
+      dark band does not get hand-tuned each time it appears.</p>
+    <div class="rce-cluster" style="margin-top:var(--rce-space-5)">
+      <a class="rce-btn rce-btn--primary" href="#" data-cta="footer_home_consult_primary">Request a consultation</a>
+      <a class="rce-btn rce-btn--ghost" href="#" data-cta="footer_home_call_secondary">Talk to an engineer</a>
+    </div>
+  </div>
+</section>
+
+<footer class="rce-container" style="padding-block:var(--rce-space-7);color:var(--rce-text-subtle);font-size:var(--rce-text-sm)">
+  Rao's Consulting Engineers, LLC · Texas Registered Engineering Firm F-17655 ·
+  Internal component reference, not a public page.
+</footer>
+
+<!-- Overlay primitives -->
+<div class="rce-overlay" id="overlay" data-open="false"></div>
+
+<aside class="rce-drawer" id="drawer" data-open="false" role="dialog" aria-modal="true" aria-labelledby="drawer-title" hidden>
+  <div style="padding:var(--rce-space-6)">
+    <h2 id="drawer-title" style="font-size:1.5rem">Drawer primitive</h2>
+    <p class="rce-section__lead" style="font-size:var(--rce-text-base)">A future contextual inquiry
+      form would live in here. Nothing is built yet, and no backend is wired.</p>
+    <button class="rce-btn rce-btn--secondary" type="button" data-close>Close</button>
+  </div>
+</aside>
+
+<div class="rce-dialog" id="dialog" data-open="false" role="dialog" aria-modal="true" aria-labelledby="dialog-title" hidden>
+  <h2 id="dialog-title" style="font-size:1.375rem">Dialog primitive</h2>
+  <p class="rce-section__lead" style="font-size:var(--rce-text-base)">Escape closes it and focus
+    returns to the button that opened it.</p>
+  <button class="rce-btn rce-btn--primary" type="button" data-close>Close</button>
+</div>
+
+<script>
+/* Demo behaviour only. The Angular components in src/app/shared/ui carry the
+   real implementations and emit this same markup. */
+(function () {
+  /* --- Tabs: WAI-ARIA pattern, matching RceTabsComponent --- */
+  const tablist = document.querySelector('#demo-tabs [role="tablist"]');
+  const tabs = Array.from(tablist.querySelectorAll('[role="tab"]'));
+  function selectTab(tab) {
+    tabs.forEach(t => {
+      const on = t === tab;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+  }
+  tabs.forEach((tab, i) => {
+    tab.addEventListener('click', () => selectTab(tab));
+    tab.addEventListener('keydown', e => {
+      const last = tabs.length - 1;
+      let next = null;
+      if (e.key === 'ArrowRight') next = i === last ? 0 : i + 1;
+      else if (e.key === 'ArrowLeft') next = i === 0 ? last : i - 1;
+      else if (e.key === 'Home') next = 0;
+      else if (e.key === 'End') next = last;
+      else return;
+      e.preventDefault();
+      selectTab(tabs[next]);
+      tabs[next].focus();
+    });
+  });
+
+  /* --- Disclosures, matching RceDisclosureComponent --- */
+  document.querySelectorAll('.rce-disclosure__trigger').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      document.getElementById(btn.getAttribute('aria-controls')).hidden = open;
+    });
+  });
+
+  /* --- Overlays: open, close, Escape, focus return --- */
+  const overlay = document.getElementById('overlay');
+  let opener = null;
+  function open(el) {
+    opener = document.activeElement;
+    el.hidden = false;
+    overlay.dataset.open = 'true';
+    requestAnimationFrame(() => { el.dataset.open = 'true'; });
+    document.body.style.overflow = 'hidden';
+    el.querySelector('button')?.focus();
+  }
+  function closeAll() {
+    ['drawer', 'dialog'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el.dataset.open === 'true') {
+        el.dataset.open = 'false';
+        setTimeout(() => { el.hidden = true; }, 320);
+      }
+    });
+    overlay.dataset.open = 'false';
+    document.body.style.overflow = '';
+    opener?.focus();
+  }
+  document.getElementById('open-drawer').addEventListener('click', () => open(document.getElementById('drawer')));
+  document.getElementById('open-dialog').addEventListener('click', () => open(document.getElementById('dialog')));
+  document.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', closeAll));
+  overlay.addEventListener('click', closeAll);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAll(); });
+})();
+</script>
+</body>
+</html>

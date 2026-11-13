@@ -134,7 +134,7 @@ interface Pillar {
                   Pillar 0{{ getPillarIndex(selectedPillar.id) }}
                 </div>
                 
-                <h3 class="text-4xl md:text-5xl font-bold text-slate-900 mb-8 leading-[1.15] tracking-tight">
+                <h3 class="rce-editorial text-4xl md:text-5xl font-bold text-slate-900 mb-8 leading-[1.15] tracking-tight">
                   {{ selectedPillar.title }}
                 </h3>
                 
@@ -162,18 +162,15 @@ interface Pillar {
                    <div class="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-transparent"></div>
                    <div class="relative z-10">
                       <div class="flex items-center justify-between mb-10 border-b border-white/10 pb-6">
-                         <span class="text-white text-xs font-mono uppercase tracking-[0.3em]">Entitlement Rhythm</span>
-                         <span class="text-blue-400 font-mono text-[10px]">VERIFIED 2024</span>
+                         <span class="text-white text-xs font-mono uppercase tracking-[0.3em]">Entitlement Path</span>
                       </div>
                       <div class="space-y-8">
                          <div *ngFor="let step of selectedPillar.steps; let i = index" class="relative">
                             <div class="flex items-center justify-between mb-2">
                                <span class="text-white text-sm font-medium tracking-wide">{{ step.label }}</span>
-                               <span class="text-[#d5a021] text-[10px] font-mono">COMPLETE</span>
+                               <span class="text-[#d5a021] text-[10px] font-mono">STEP {{ i + 1 }}</span>
                             </div>
-                            <div class="w-full h-1 bg-white/10 rounded-full overflow-hidden">
-                               <div class="h-full bg-blue-500 transition-all duration-1000 delay-300" [style.width]="(80 + (i*5)) + '%'"></div>
-                            </div>
+                            <div class="w-full h-px bg-white/10"></div>
                             <p class="text-slate-400 text-xs mt-3 font-light leading-relaxed">{{ step.subtext }}</p>
                          </div>
                       </div>
@@ -308,7 +305,7 @@ export class WhyUsComponent {
       shortTitle: 'Texas Authority',
       title: 'Deep Knowledge of Texas Jurisdictions',
       icon: 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
-      description: 'From municipal review processes to agency coordination, we understand how Texas cities operate. That experience translates into faster approvals, cleaner submittals, and fewer surprises.',
+      description: 'From municipal review processes to agency coordination, we understand how Texas cities operate. That experience helps produce cleaner submittals and fewer surprises in review.',
       emoji: '📍',
       focusTitle: 'Jurisdictional Logic & Speed',
       colorClass: 'bg-white',
@@ -321,8 +318,8 @@ export class WhyUsComponent {
       layout: 'Standard',
       steps: [
         { label: 'Agency Coordination', subtext: 'Navigating TxDOT, TCEQ, and City Staff' },
-        { label: 'Regional Local Code Audit', subtext: 'Ensuring absolute jurisdictional compliance' },
-        { label: 'Expedited Approval Cycles', subtext: 'Mastering the municipal review rhythm' }
+        { label: 'Local Criteria Review', subtext: 'Checking designs against local criteria manuals' },
+        { label: 'Comment Response', subtext: 'Tracking and answering agency review comments' }
       ]
     },
     {

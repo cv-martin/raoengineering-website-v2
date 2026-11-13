@@ -1,3 +1,10 @@
+/* Design tokens must load before Tailwind so preflight can resolve the font
+   variables it inherits from the theme config. Variables only — no visual
+   change on their own. The base layer is loaded after this file via
+   angular.json, so it wins over preflight without !important. */
+@import './styles/fonts.css';
+@import './styles/tokens.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

@@ -44,3 +44,9 @@ Thumbs.db
 # AutoCAD plot logs and other local logs (contain internal project paths)
 plot.log
 *.log
+
+# Internal RCE records are kept outside this repository.
+# Audits, claim-verification notes and decision registers must never be
+# committed here: this repo is public.
+docs/internal/
+*_INTERNAL.md

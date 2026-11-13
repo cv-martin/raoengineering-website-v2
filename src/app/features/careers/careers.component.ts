@@ -68,7 +68,7 @@ import { RouterModule } from '@angular/router';
             
             <h3 class="text-4xl md:text-5xl font-bold mb-8 leading-tight">Why We Serve <span class="text-white">Texas</span></h3>
             <p class="text-slate-400 text-lg leading-relaxed mb-6 font-light">
-              At Rao Engineering, we don't just draft plans; we engineer the backbone of civilization. 
+              At Rao's Consulting Engineers, we don't just draft plans; we engineer the backbone of civilization. 
               From critical water systems to sprawling transportation networks, our work defines how Texas lives, moves, and grows.
             </p>
             <p class="text-slate-400 text-lg leading-relaxed mb-10 font-light">

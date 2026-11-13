@@ -34,7 +34,7 @@ import { RouterModule } from '@angular/router';
              <div class="inline-block px-4 py-1 border border-cyan-500/20 rounded-full text-cyan-500 text-[10px] font-bold tracking-[0.5em] uppercase mb-6 bg-cyan-50/30">
                 Institutional Profile
              </div>
-             <h2 class="text-4xl md:text-7xl font-bold text-slate-900 tracking-tighter leading-none">
+             <h2 class="rce-editorial text-4xl md:text-7xl font-bold text-slate-900 tracking-tighter leading-none">
                 About <span class="text-cyan-500">Rao's Consulting</span> <br> 
                 <span class="text-slate-400">Engineers (RCE)</span>
              </h2>
@@ -77,7 +77,7 @@ import { RouterModule } from '@angular/router';
              </div>
              <h3 class="text-sm font-bold text-slate-900 uppercase tracking-[0.3em] mb-4">Regional Command</h3>
              <p class="text-slate-600 text-base leading-relaxed font-light">
-                Established presence across the Greater San Antonio area, Houston, Austin, and Dallas. Designing private roadways that power high-consequence Texas developments.
+                Project experience across the San Antonio, Austin, Houston and Hill Country areas, and at Fort Worth and Greenville in the Dallas&ndash;Fort Worth area. Site design is prepared to each jurisdiction's criteria.
              </p>
           </div>
 
@@ -101,7 +101,7 @@ import { RouterModule } from '@angular/router';
              </div>
              <h3 class="text-sm font-bold text-slate-900 uppercase tracking-[0.3em] mb-4">Strategic Permitting</h3>
              <p class="text-slate-600 text-base leading-relaxed font-light">
-                Adept navigation of permitting requirements for TxDOT, TCEQ, and SAWS across numerous Texas municipalities including San Antonio, Dallas, Austin, Houston, Frisco, Round Rock, and Cedar Park.
+                Permitting and agency coordination, including TxDOT access and driveway permits and TCEQ compliance, across Texas municipalities including San Antonio, Austin, Houston, Round Rock, Cedar Park, Leander and Schertz.
              </p>
           </div>
 
@@ -113,7 +113,7 @@ import { RouterModule } from '@angular/router';
     <section class="video-section">
       <div class="container">
         <div class="section-header">
-          <h2>See Our Work <span class="text-gold">In Action</span></h2>
+          <h2 class="rce-editorial">See Our Work <span class="text-gold">In Action</span></h2>
           <p class="section-subtitle">Engineering excellence across Central Texas</p>
         </div>
         <div class="video-container relative group cursor-pointer" (click)="playVideo(videoPlayer)">
@@ -142,7 +142,7 @@ import { RouterModule } from '@angular/router';
     <section class="philosophy-section">
       <div class="container">
         <div class="section-header">
-          <h2>Our <span class="text-gold">Philosophy</span></h2>
+          <h2 class="rce-editorial">Our <span class="text-gold">Philosophy</span></h2>
         </div>
         <div class="values-grid">
           <div class="value-item">
@@ -160,7 +160,7 @@ import { RouterModule } from '@angular/router';
           <div class="value-item">
             <h3>Family</h3>
             <p>
-              We are a family-owned firm, and we treat our clients like partners. When you work with Rao Engineering, you're not just a project number.
+              We are a family-owned firm, and we treat our clients like partners. When you work with Rao's Consulting Engineers, you're not just a project number.
             </p>
           </div>
         </div>
@@ -171,7 +171,7 @@ import { RouterModule } from '@angular/router';
     <section class="culture-section">
       <div class="container">
         <div class="section-header">
-          <h2>Our <span class="text-cyan">Culture</span></h2>
+          <h2 class="rce-editorial">Our <span class="text-cyan">Culture</span></h2>
           <p>A family-focused environment where excellence thrives</p>
         </div>
         <div class="culture-grid">

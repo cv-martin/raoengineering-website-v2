@@ -27,12 +27,11 @@ import { ScrollRevealDirective } from '../../../../shared/directives/scroll-reve
           <div class="space-y-10">
             <div appScrollReveal revealDirection="left" [revealDelay]="0" [revealThreshold]="0.15">
               <span class="text-[#d5a021] font-bold tracking-[0.2em] uppercase text-sm mb-4 block">Our Portfolio</span>
-              <h2 class="text-4xl md:text-5xl font-bold text-slate-900 leading-tight mb-6">
+              <h2 class="rce-editorial text-4xl md:text-5xl font-bold text-slate-900 leading-tight mb-6">
                 Selected Project <br/>Experience
               </h2>
               <p class="text-lg text-slate-600 leading-relaxed max-w-xl font-light">
-                From master-planned communities to complex municipal infrastructure, our portfolio reflects 
-                decades of engineering precision across Texas.
+                From master-planned communities to complex municipal infrastructure, our portfolio reflects engineering work across Texas.
               </p>
             </div>
 

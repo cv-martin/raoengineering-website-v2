@@ -1,0 +1,91 @@
+/* ============================================================================
+   RCE BASE LAYER
+   Loaded AFTER styles.css (and therefore after Tailwind's preflight), so these
+   rules win over the reset without needing !important.
+
+   Scope is deliberately narrow in this phase: typography, focus visibility and
+   a container utility. No layout, no colour changes, no component styling —
+   existing pages must keep their current structure.
+   ========================================================================== */
+
+/* ----------------------------------------------------------------------------
+   1. Typography
+   Tailwind's preflight points html at theme.fontFamily.sans, which the config
+   maps to --rce-font-body, so body text picks up the new face automatically.
+   Headings need the display face applied explicitly.
+   -------------------------------------------------------------------------- */
+
+body {
+  font-size: var(--rce-text-base);
+  line-height: var(--rce-leading-body);
+  color: var(--rce-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--rce-font-display);
+  line-height: var(--rce-leading-tight);
+  letter-spacing: var(--rce-tracking-tight);
+  font-weight: 600;
+}
+
+/* Sub-headings sit closer to body text and should not carry display tracking. */
+h4, h5, h6 {
+  line-height: var(--rce-leading-snug);
+  letter-spacing: normal;
+}
+
+/* Opt-in marker for editorial headings — company history, featured sections.
+   It is a single declaration, not a component: in Options A and B the editorial
+   face follows the display face, so marking a heading changes nothing there.
+   Only Option C gives these a different face. */
+.rce-editorial {
+  font-family: var(--rce-font-editorial);
+  letter-spacing: var(--rce-tracking-editorial);
+  /* 600, set explicitly rather than left to font fallback.
+     Templates put `font-bold` (700) on these headings, and the old Google Fonts
+     request simply never loaded a serif 700, so the browser quietly rendered
+     600. Now that the self-hosted set could supply a real 700, the weight is
+     stated here so the rendering is intentional and does not depend on which
+     files happen to be present. 600 is the approved editorial weight: at
+     display sizes a serif 700 reads heavy. */
+  font-weight: 600;
+}
+
+/* Numerals line up in tables, specification lists and phone numbers. */
+table, .rce-tabular, time {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ----------------------------------------------------------------------------
+   2. Focus visibility
+   Tailwind's preflight removes the browser default outline. Without a
+   replacement, keyboard users cannot see where they are — WCAG 2.4.7.
+   -------------------------------------------------------------------------- */
+
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 3px solid var(--rce-focus);
+  outline-offset: 2px;
+  border-radius: var(--rce-radius-sm);
+}
+
+/* Layout helpers moved to components.css, which is the component layer.
+   This file stays limited to element defaults, focus and typography. */
+
+/* ----------------------------------------------------------------------------
+   3. Media defaults
+   -------------------------------------------------------------------------- */
+
+img, svg, video { max-width: 100%; height: auto; }
+
+/* ----------------------------------------------------------------------------
+   5. Reduced motion
+   styles.css already disables the hero and scroll-reveal animations. This
+   catches smooth scrolling and anything added later.
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

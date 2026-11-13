@@ -1,0 +1,281 @@
+/* ============================================================================
+   RCE DESIGN TOKENS
+   The single source of truth for colour, typography, spacing, layout and motion.
+
+   This file contains VARIABLES ONLY. It styles no element by itself, so loading
+   it cannot change the rendered page. Everything else — Tailwind's theme, the
+   base layer, shared components and page CSS — reads from here.
+
+   Rule: no raw hex value, font size or section padding anywhere else in the
+   codebase. If a value is needed, it is added here first.
+
+   Phase 1 (this file): colours are the EXACT values already in use, so adopting
+   tokens changes nothing visually. Typography is the one deliberate change.
+   ========================================================================== */
+
+:root {
+  /* ==========================================================================
+     1. COLOUR — BRAND
+     Gold #d5a021 is the existing brand gold (currently hard-coded 212 times).
+     Navy #1e3a8a is the existing Tailwind `primary`.
+     ====================================================================== */
+
+  --rce-gold-400: #e0ac2b;   /* gold on DARK backgrounds — brighter, stays legible */
+  --rce-gold-500: #d5a021;   /* brand gold: buttons, accents, rules */
+  --rce-gold-600: #b8860b;   /* hover / pressed */
+  --rce-gold-700: #7a5a0c;   /* the ONLY gold allowed for small text on light (AA) */
+  --rce-gold-50:  #fdf8ec;   /* tinted surface */
+
+  --rce-navy-500: #1e3a8a;   /* brand primary (Tailwind `primary` today) */
+  --rce-navy-600: #1e40af;
+  --rce-navy-900: #0f172a;   /* dark sections, footer */
+  --rce-navy-950: #070d1a;   /* deepest surface */
+
+  /* ==========================================================================
+     2. COLOUR — NEUTRALS
+     One ramp replacing the 18 ad-hoc greys found in the audit.
+     ====================================================================== */
+
+  --rce-slate-900: #0f172a;
+  --rce-slate-800: #1e293b;  /* headings */
+  --rce-slate-700: #334155;
+  --rce-slate-600: #475569;  /* secondary text */
+  --rce-slate-500: #64748b;  /* captions only — too light for body text */
+  --rce-slate-300: #cbd5e1;
+  --rce-slate-200: #e2e8f0;  /* borders */
+  --rce-slate-100: #f1f5f9;
+  --rce-slate-50:  #f8fafc;  /* alternating section background */
+  --rce-white:     #ffffff;
+
+  /* Cream family — defined for the next phase, not yet applied anywhere. */
+  --rce-cream:   #f6f4ef;
+  --rce-cream-2: #efece4;
+
+  /* ==========================================================================
+     3. COLOUR — SEMANTIC
+     What components should actually reference. Swapping a brand value above
+     updates every usage.
+     ====================================================================== */
+
+  --rce-text:        var(--rce-slate-800);  /* body copy */
+  --rce-text-muted:  var(--rce-slate-600);  /* secondary copy */
+  --rce-text-subtle: var(--rce-slate-500);  /* captions, short labels only */
+  --rce-text-invert: var(--rce-white);
+
+  --rce-surface:     var(--rce-white);
+  --rce-surface-alt: var(--rce-slate-50);
+  --rce-surface-dark:var(--rce-navy-900);
+  --rce-border:      var(--rce-slate-200);
+
+  --rce-action:       var(--rce-gold-500);
+  --rce-action-hover: var(--rce-gold-600);
+  --rce-action-text:  var(--rce-slate-900);  /* text ON gold */
+  --rce-focus:        var(--rce-gold-700);
+
+  /* Per-service accent. Each service page overrides --rce-accent only;
+     everything else is inherited. Defaults to the brand navy. */
+  --rce-accent:      var(--rce-navy-500);
+  --rce-accent-dark: var(--rce-navy-600);
+  --rce-accent-tint: #eef2ff;
+
+  /* ==========================================================================
+     4. TYPOGRAPHY — FAMILIES
+     LOCKED: Option C. Inter Tight carries the working headings — hero, service
+     titles, anything technical. Source Serif 4 is held back for editorial
+     moments only: company history and featured sections, which opt in with
+     class="rce-editorial". Inter carries body, navigation, forms and buttons.
+
+     Options A and B remain switchable for reference only
+     (<html data-font="a"> / "b"); they are not the site's typography.
+     ====================================================================== */
+
+  --rce-font-body:    "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --rce-font-display: "Inter Tight", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --rce-font-mono:    "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Editorial headings — company history, featured sections. */
+  --rce-font-editorial:     "Source Serif 4", Georgia, "Times New Roman", serif;
+  --rce-tracking-editorial: -0.02em;
+
+  /* ==========================================================================
+     5. TYPOGRAPHY — SCALE
+     Seven steps, replacing the 17 unrelated sizes found in the audit
+     (1.75rem alone appeared 43 times).
+     ====================================================================== */
+
+  --rce-text-xs:   0.75rem;                          /* 12px — mono labels, section numbers */
+  --rce-text-sm:   0.875rem;                         /* 14px — captions, notes */
+  --rce-text-base: 1.0625rem;                        /* 17px — body; 17 beats 16 for dense technical copy */
+  --rce-text-lead: clamp(1.125rem, 1.6vw, 1.3125rem);/* 18–21px — section intros */
+  --rce-text-h3:   clamp(1.1875rem, 1.6vw, 1.5rem);  /* 19–24px — card titles */
+  --rce-text-h2:   clamp(2.125rem, 3.8vw, 3.125rem); /* 34–50px — section headings */
+  --rce-text-h1:   clamp(2.75rem, 5vw, 4.5rem);      /* 44–72px — page title only */
+
+  --rce-leading-tight: 1.1;    /* display headings */
+  --rce-leading-snug:  1.3;    /* sub-headings */
+  --rce-leading-body:  1.65;   /* body — readability for long technical text */
+  --rce-tracking-tight:   -0.03em;  /* large display type */
+  --rce-tracking-eyebrow:  0.14em;  /* uppercase mono labels */
+  --rce-measure: 65ch;         /* max line length for paragraphs */
+
+  /* ==========================================================================
+     6. SPACING — 4px base, 8 steps
+     ====================================================================== */
+
+  --rce-space-1: 0.25rem;   /*  4px */
+  --rce-space-2: 0.5rem;    /*  8px */
+  --rce-space-3: 0.75rem;   /* 12px */
+  --rce-space-4: 1rem;      /* 16px */
+  --rce-space-5: 1.5rem;    /* 24px */
+  --rce-space-6: 2rem;      /* 32px */
+  --rce-space-7: 3rem;      /* 48px */
+  --rce-space-8: 4rem;      /* 64px */
+
+  /* One section rhythm, replacing the four competing values in the audit
+     (5rem 43x, 6rem 5x, 4rem 5x, py-24 5x). */
+  --rce-section-pad: clamp(4rem, 8vw, 7.5rem);
+
+  /* ==========================================================================
+     7. LAYOUT
+     One container, replacing the nine different max-w-* widths in use.
+     ====================================================================== */
+
+  --rce-container: 1280px;
+  --rce-gutter:    clamp(1.25rem, 4vw, 3rem);
+
+  /* Breakpoints. CSS cannot read a variable inside @media, so these are the
+     documented values; Tailwind's `screens` config mirrors them exactly.
+       sm  640px   phone landscape / small tablet
+       md  768px   tablet
+       lg 1024px   small laptop
+       xl 1280px   desktop
+     Components use 1024px and 640px as their two primary breaks.           */
+
+  /* ==========================================================================
+     8. SHAPE, DEPTH, MOTION
+     ====================================================================== */
+
+  --rce-radius-sm: 6px;
+  --rce-radius:    10px;
+  --rce-radius-lg: 16px;
+  --rce-radius-pill: 999px;
+
+  --rce-shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.08);
+  --rce-shadow-md: 0 8px 24px rgba(15, 23, 42, 0.08);
+  --rce-shadow-lg: 0 24px 48px -24px rgba(15, 23, 42, 0.25);
+
+  --rce-ease: cubic-bezier(0.2, 0.7, 0.1, 1);
+  --rce-transition: 180ms var(--rce-ease);
+
+  /* ==========================================================================
+     9. FEEDBACK STATES
+     Needed so an inquiry form can report honestly. Register §6: a submission
+     must never look successful unless delivery was confirmed, so error and
+     success need equal weight in the system, not an afterthought.
+     Contrast of each -ink on its -bg is verified in docs/.
+     ====================================================================== */
+
+  --rce-error:       #b42318;   /* border / icon */
+  --rce-error-ink:   #912018;   /* text on light */
+  --rce-error-bg:    #fef3f2;
+  --rce-success:     #067647;
+  --rce-success-ink: #05603a;
+  --rce-success-bg:  #ecfdf3;
+  --rce-warning:     #b54708;
+  --rce-warning-ink: #93370d;
+  --rce-warning-bg:  #fffaeb;
+  --rce-info:        var(--rce-navy-500);
+  --rce-info-ink:    var(--rce-navy-500);
+  --rce-info-bg:     var(--rce-accent-tint);
+
+  /* slate-600, not slate-500: on the disabled surface slate-500 measures
+     4.34:1, which WCAG exempts for disabled controls but which still leaves a
+     disabled field's value hard to read. The disabled signal comes from the
+     surface, the cursor and aria-disabled, not from faint text. */
+  --rce-disabled-ink:     var(--rce-slate-600);
+  --rce-disabled-surface: var(--rce-slate-100);
+  --rce-disabled-border:  var(--rce-slate-200);
+  --rce-disabled-opacity: 0.55;
+
+  /* ==========================================================================
+     10. FORM CONTROLS
+     ====================================================================== */
+
+  --rce-field-height:  48px;   /* ≥44px touch target */
+  --rce-field-pad-x:   0.875rem;
+  --rce-field-border:  1px solid var(--rce-slate-300);
+  --rce-field-radius:  var(--rce-radius-sm);
+  --rce-field-bg:      var(--rce-white);
+  --rce-field-placeholder: var(--rce-slate-500);
+
+  /* ==========================================================================
+     11. LAYERING
+     One scale, so a drawer, the mobile menu and a dialog cannot collide.
+     ====================================================================== */
+
+  --rce-z-base:     0;
+  --rce-z-raised:   10;   /* cards lifted on hover, sticky section heads */
+  --rce-z-sticky:   100;  /* sticky site header */
+  --rce-z-overlay:  200;  /* scrim behind a drawer or dialog */
+  --rce-z-drawer:   210;  /* inquiry drawer, mobile menu */
+  --rce-z-dialog:   220;
+  --rce-z-toast:    300;
+
+  /* ==========================================================================
+     12. MOTION
+     Three durations: UI feedback, element transitions, panel movement.
+     ====================================================================== */
+
+  --rce-duration-fast: 120ms;  /* hover, focus, button press */
+  --rce-duration-base: 220ms;  /* disclosure, tab panel, fade */
+  --rce-duration-slow: 320ms;  /* drawer and dialog travel */
+  --rce-ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
+  --rce-ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* ==========================================================================
+     13. MEDIA — scrims and aspect ratios
+     A scrim is what makes hero text readable over a photograph. Real site
+     photography is brighter and busier than illustration, so this is a system
+     value rather than a per-page fix.
+     ====================================================================== */
+
+  /* Bottom-weighted: protects text sitting low over an image. */
+  --rce-scrim-bottom: linear-gradient(to top,
+      rgba(7, 13, 26, 0.85) 0%, rgba(7, 13, 26, 0.55) 35%, rgba(7, 13, 26, 0) 75%);
+  /* Left-weighted: protects text in the left column of a wide hero. */
+  --rce-scrim-left: linear-gradient(to right,
+      rgba(7, 13, 26, 0.88) 0%, rgba(7, 13, 26, 0.6) 45%, rgba(7, 13, 26, 0.15) 100%);
+  /* Flat wash for busy photography where text spans the frame. */
+  --rce-scrim-flat: rgba(7, 13, 26, 0.55);
+
+  --rce-ratio-hero:   21 / 9;
+  --rce-ratio-wide:   16 / 9;
+  --rce-ratio-figure:  4 / 3;   /* drawings and exhibits */
+  --rce-ratio-square:  1 / 1;
+}
+
+/* ============================================================================
+   REFERENCE VARIANTS — not the site's typography
+   Option C is locked and is the default above. These two remain so the earlier
+   comparison can be reopened without a code change; `data-font="c"` is kept as
+   an explicit alias of the default so previous links still resolve.
+   ========================================================================== */
+
+/* Option A — Inter Tight everywhere, no editorial face. */
+:root[data-font="a"] {
+  --rce-font-editorial:     var(--rce-font-display);
+  --rce-tracking-editorial: var(--rce-tracking-tight);
+}
+
+/* Option B — Source Serif 4 everywhere. */
+:root[data-font="b"] {
+  --rce-font-display:       "Source Serif 4", Georgia, "Times New Roman", serif;
+  --rce-font-editorial:     var(--rce-font-display);
+  --rce-tracking-tight:     -0.02em;
+  --rce-tracking-editorial: var(--rce-tracking-tight);
+  --rce-leading-tight:      1.12;
+}
+
+/* Option C is the locked default above, so it needs no rule of its own:
+   data-font="c" matches nothing and therefore inherits :root, which is C.
+   An empty rule would be stripped by the minifier anyway. */
