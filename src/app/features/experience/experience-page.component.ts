@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
 import { GalleryImage, ProjectGalleryComponent } from './components/project-gallery/project-gallery.component';
 
 interface Project {
@@ -48,17 +47,10 @@ interface Project {
   rotate?: number;
 }
 
-interface CategoryMetadata {
-  id: string;
-  title: string;
-  description: string;
-  stats: string[];
-}
-
 @Component({
   selector: 'app-experience-page',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, ProjectGalleryComponent],
+  imports: [CommonModule, RouterModule, ProjectGalleryComponent],
   template: `
     <header class="page-header relative overflow-hidden bg-slate-950 pb-8 pt-24 text-white lg:pb-12 lg:pt-32">
       <div class="absolute inset-0 z-0">
@@ -498,6 +490,8 @@ export class ExperiencePageComponent {
       title: 'Tex Stop - Converse',
       category: 'C-Stores',
       location: 'Converse, TX',
+      photo: 'assets/projects/photos/burger-king-and-c-store-converse.jpg',
+      photoCaption: 'Converse, TX',
       description: 'Convenience store and fuel center site in Converse, TX: site layout, fuel canopy circulation, grading, drainage and utility service.',
       services: ['Site Development', 'Permitting'],
     },
@@ -514,16 +508,61 @@ export class ExperiencePageComponent {
       title: 'Tex Stop FM-78 - Schertz',
       category: 'C-Stores',
       location: 'Schertz, TX',
-      description: '6,500 SF convenience store with a 10-MPD fuel canopy, Burger King, automated car wash and pizza store on FM 78, Schertz, TX.',
-      scope: 'Specific use permit, subdivision plat and site plan approval.',
-      services: ['Special Use Permit', 'Site Plan', 'Subdivision Plat']
+      gallery: [
+        {
+          src: 'assets/projects/comercial/tex-stop-fm78-site-plan.jpg',
+          label: 'Site Plan',
+          alt: 'RCE site plan for Tex Stop on FM 78 in Schertz, Texas: a 7,450 SF convenience store with fuel, a 2,730 SF Burger King with drive-thru and a 3,260 SF shell space on a 5.397-acre tract.'
+        },
+        {
+          src: 'assets/projects/comercial/tex-stop-fm78-detention-pond.jpg',
+          label: 'Detention Pond',
+          alt: 'RCE detention pond plan for Tex Stop FM 78 in Schertz, Texas: the 100-year discharge reduced from 20.9 cfs to 11 cfs with 5,832 CF of storage.'
+        },
+        {
+          src: 'assets/projects/comercial/tex-stop-fm78-utility.jpg',
+          label: 'Utility Plan',
+          alt: 'RCE utility plan for Tex Stop FM 78 in Schertz, Texas: water, sanitary sewer, grease interceptors and a new fire hydrant to City of Schertz standards.'
+        }
+      ],
+      highlights: [
+        { value: '13,440 sf', label: 'Three buildings' },
+        { value: '5.4 ac', label: 'Tract' },
+        { value: '20.9 to 11 cfs', label: '100-yr discharge' }
+      ],
+      description: 'Multi-use fuel site on FM 78, Schertz, TX: a 7,450 SF convenience store with fuel, a 2,730 SF Burger King with drive-thru and a 3,260 SF shell space, with 86 parking spaces and on-site detention.',
+      scope: 'Specific use permit, subdivision plat, site, utility, grading, erosion control and detention pond plans.',
+      services: ['Special Use Permit', 'Subdivision Plat', 'Site Development', 'Detention']
     },
     {
       title: 'Misty Valley C-Store',
       category: 'C-Stores',
-      location: 'Texas',
-      description: 'Convenience store and fuel center: site civil design and permitting.',
-      services: ['Site Development', 'Permitting']
+      location: 'Cedar Park, TX',
+      gallery: [
+        {
+          src: 'assets/projects/comercial/misty-valley-site-plan.jpg',
+          label: 'Site Plan',
+          alt: 'RCE site plan for the Misty Valley C-Store on FM 1431 in Cedar Park, Texas: a 10,000 SF building with fuel canopies and 40 parking spaces on a 1.88-acre lot.'
+        },
+        {
+          src: 'assets/projects/comercial/misty-valley-drainage.jpg',
+          label: 'Drainage Plan',
+          alt: 'RCE drainage plan for the Misty Valley C-Store in Cedar Park, Texas, routing site runoff through storm drains to the existing water quality and detention pond.'
+        },
+        {
+          src: 'assets/projects/comercial/misty-valley-utility.jpg',
+          label: 'Utility Plan',
+          alt: 'RCE utility plan for the Misty Valley C-Store in Cedar Park, Texas: water meters, a new fire hydrant and crossings of an existing 30-inch water main and 8-inch force main.'
+        }
+      ],
+      highlights: [
+        { value: '10,000 sf', label: 'Building' },
+        { value: '1.88 ac', label: 'Lot' },
+        { value: '40', label: 'Parking spaces' }
+      ],
+      description: 'Convenience store and fuel site on FM 1431 in the Misty Valley Subdivision, Cedar Park, TX: site layout, storm drainage to the existing detention pond, and water, wastewater and fire service to City of Cedar Park criteria.',
+      scope: 'Final plat, site, paving, grading, drainage, utility, fire protection and erosion control plans.',
+      services: ['Site Development', 'Grading & Drainage', 'Utilities', 'Permitting']
     },
     {
       title: 'Swiftco Gas Station - Schertz',
@@ -540,18 +579,64 @@ export class ExperiencePageComponent {
       services: ['Site Development', 'Permitting']
     },
     {
-      title: 'Kelly Lane C-Store',
+      title: 'Kelly Lane Retail Center',
       category: 'C-Stores',
       location: 'Pflugerville, TX',
-      description: 'Convenience store and fuel center on Kelly Lane, Pflugerville, TX: site civil design and permitting.',
-      services: ['Site Development', 'Permitting']
+      gallery: [
+        {
+          src: 'assets/projects/comercial/kelly-lane-site-plan.jpg',
+          label: 'Site Plan',
+          alt: 'RCE site dimensional control plan for the Kelly Lane retail site in Pflugerville, Texas: two retail buildings of 6,000 SF and 9,600 SF with parking, drive-thru queuing and accessible routes.'
+        },
+        {
+          src: 'assets/projects/comercial/kelly-lane-detention-pond.jpg',
+          label: 'Water Quality & Detention',
+          alt: 'RCE water quality and detention pond plan for the Kelly Lane site in Pflugerville, Texas: sediment and bio-filtration ponds and a detention pond routed for the 2- to 100-year storms.'
+        },
+        {
+          src: 'assets/projects/comercial/kelly-lane-grading.jpg',
+          label: 'Grading Plan',
+          alt: 'RCE grading plan for the Kelly Lane site in Pflugerville, Texas, with finished grades, storm inlets and pipe routed to the on-site pond.'
+        }
+      ],
+      highlights: [
+        { value: '15,600 sf', label: 'Two buildings' },
+        { value: '100-yr', label: 'Detention routing' },
+        { value: '8,434 cf', label: 'Water quality volume' }
+      ],
+      description: 'Two-building retail site on Kelly Lane, Pflugerville, TX: site layout, grading, storm drainage, and a sediment, bio-filtration and detention pond system prepared to City of Pflugerville criteria.',
+      scope: 'Site dimensional control, grading, utility, erosion control, and water quality and detention pond plans.',
+      services: ['Site Development', 'Grading & Drainage', 'Detention & Water Quality', 'Permitting']
     },
     {
       title: 'Weiss Lane C-Store',
       category: 'C-Stores',
       location: 'Pflugerville, TX',
-      description: 'Convenience store and fuel center on Weiss Lane, Pflugerville, TX: site civil design and permitting.',
-      services: ['Site Development', 'Permitting']
+      gallery: [
+        {
+          src: 'assets/projects/comercial/weiss-lane-grading.jpg',
+          label: 'Grading Plan',
+          alt: 'RCE grading plan for the Weiss Lane C-Store in Pflugerville, Texas: a C-store and retail building with fuel pumps, three 8,200 SF office pads and a detention pond.'
+        },
+        {
+          src: 'assets/projects/comercial/weiss-lane-subdivision-plan.jpg',
+          label: 'Subdivision Plat',
+          alt: 'RCE subdivision plat for the 4.72-acre Weiss Lane Subdivision in Pflugerville, Texas, with two commercial lots at Weiss Lane and Jesse Bohls Road.'
+        },
+        {
+          src: 'assets/projects/comercial/weiss-lane-drainage.jpg',
+          label: 'Drainage Area Plan',
+          alt: 'RCE proposed drainage area plan for the Weiss Lane site in Pflugerville, Texas, with peak flows for the 2- to 100-year storms using NOAA Atlas 14 rainfall.'
+        }
+      ],
+      highlights: [
+        { value: '4.72 ac', label: 'Subdivision' },
+        { value: '2', label: 'Commercial lots' },
+        { value: 'Atlas 14', label: 'Rainfall data' }
+      ],
+      description: 'C-store, retail and office site in the Weiss Lane Subdivision, Pflugerville, TX: platting, grading, drainage area analysis and an on-site detention pond to City of Pflugerville criteria.',
+      scope: 'Subdivision plat, existing conditions, grading, utility and drainage area plans.',
+      services: ['Subdivision Plat', 'Grading & Drainage', 'Detention', 'Utilities']
     },
     {
       title: 'Nolina Neighborhood Mart',
@@ -571,8 +656,31 @@ export class ExperiencePageComponent {
       title: 'South New Braunfels C-Store',
       category: 'C-Stores',
       location: 'San Antonio, TX',
-      description: 'Convenience store and fuel center on S New Braunfels Ave, San Antonio, TX: site civil design and permitting.',
-      services: ['Site Development', 'Permitting']
+      gallery: [
+        {
+          src: 'assets/projects/comercial/south-new-braunfels-site-plan.jpg',
+          label: 'Site Plan',
+          alt: 'RCE dimensional control plan for the South New Braunfels C-Store in San Antonio, Texas: a 4,500 SF convenience store with fuel dispenser islands and 22 parking spaces.'
+        },
+        {
+          src: 'assets/projects/comercial/south-new-braunfels-utility.jpg',
+          label: 'Utility Plan',
+          alt: 'RCE utility plan for the South New Braunfels C-Store in San Antonio, Texas: water meters with backflow, a 6-inch sewer lateral and a 1,200-gallon grease interceptor to SAWS standards.'
+        },
+        {
+          src: 'assets/projects/comercial/south-new-braunfels-grading.jpg',
+          label: 'Grading Plan',
+          alt: 'RCE grading plan for the South New Braunfels C-Store in San Antonio, Texas, with finished grades for the building, parking and drives.'
+        }
+      ],
+      highlights: [
+        { value: '4,500 sf', label: 'Convenience store' },
+        { value: '22', label: 'Parking spaces' },
+        { value: 'SAWS', label: 'Utility standards' }
+      ],
+      description: 'Convenience store and fuel site on S New Braunfels Ave, San Antonio, TX: site layout, grading, and water and sewer service prepared to City of San Antonio and SAWS standards.',
+      scope: 'Demolition, dimensional control, paving, fire protection, grading, utility and erosion control plans.',
+      services: ['Site Development', 'Grading & Drainage', 'Utilities', 'Permitting']
     },
 
     // ==================== RETAIL & RESTAURANTS ====================
@@ -580,7 +688,7 @@ export class ExperiencePageComponent {
       title: 'Burger King & C-Store - Converse',
       category: 'C-Stores',
       location: 'Converse, TX',
-      photo: 'assets/projects/photos/burger-king-and-c-store-converse.jpg',
+      photo: 'assets/projects/photos/burger-king-converse.jpg',
       photoCaption: 'Converse, TX',
       description: '5,500 SF convenience store with a 10-MPD fuel canopy, Burger King and automated car wash in Converse, TX.',
       scope: 'Multi-use pad site: fuel canopy, restaurant drive-thru stacking, car wash and pizza store.',
@@ -799,10 +907,6 @@ export class ExperiencePageComponent {
     'Single Family'
   ];
 
-  get filters(): string[] {
-    return ['All', ...this.sectors];
-  }
-  searchQuery: string = '';
   activeFilter: string = 'Commercial';
 
   /** One line per sector: what RCE delivers there (unique text per page). */
@@ -826,45 +930,6 @@ export class ExperiencePageComponent {
 
   readonly capabilities = ['Roadways', 'Bridges & Culverts', 'Lift Stations', 'H&H Analysis', '100-yr Detention',
     'Platting', 'Water & Wastewater', 'City Comment Response'];
-
-  categoryMetadata: Record<string, CategoryMetadata> = {
-    'Commercial': {
-      id: 'Commercial',
-      title: 'Commercial Infrastructure',
-      description: 'Site civil engineering for commercial pads and multi-lot developments: due diligence, zoning and entitlements, platting, site development permit plans, hydrologic and hydraulic analysis, detention ponds up to the 100-year storm, culverts and public utility extensions, with city and county review comments addressed through approval.',
-      stats: ['Master Planning', 'Utility Feasibility', 'Agency Coordination']
-    },
-    'C-Stores': {
-      id: 'C-Stores',
-      title: 'C-Stores & Fuel',
-      description: 'Convenience store and fuel center sites across Texas: fuel canopy and truck circulation layout, driveway permits with the city or TxDOT, on-site water quality and detention, and utility service through site plan approval.',
-      stats: ['Fuel Canopy Layout', 'Driveway & TxDOT Permits', 'Expedited Site Plans']
-    },
-    'Retail & Restaurants': {
-      id: 'Retail & Restaurants',
-      title: 'Retail & Restaurants',
-      description: 'Pad-site and in-line retail engineering for national brands and local developers: drive-thru stacking, parking and accessible routes, grading, storm drainage and utility connections prepared for site plan approval.',
-      stats: ['Traffic Engineering', 'Platting', 'Expedited Permitting']
-    },
-    'Multi / Family': {
-      id: 'Multi / Family',
-      title: 'Multi / Family Developments',
-      description: 'Multi-family site engineering from master planning to construction: parcel layout, public roadways, fire lane and access design, culverts, detention up to the 100-year storm, lift stations, and water and wastewater service coordinated with the city, MUD or utility provider.',
-      stats: ['SUD/MUD Coordination', 'Hydrology Modeling', 'Site Optimization']
-    },
-    'Single Family': {
-      id: 'Single Family',
-      title: 'Single Family Residential',
-      description: 'Single family subdivision engineering: preliminary and final plats, lot and street layout, residential roadways, bridges and culverts, hydrologic and hydraulic analysis, detention ponds, lift stations, and water and wastewater plans submitted for city or county approval.',
-      stats: ['Subdivision Layout', 'Roadway Design', 'TCEQ Compliance']
-    },
-    'Offices/Business parks': {
-      id: 'Offices/Business parks',
-      title: 'Offices & Business Parks',
-      description: 'Office and business park sites: lot layout and platting, shared access and parking, grading and drainage, detention and utility service for multi-building developments.',
-      stats: ['Site Development', 'Building Permitting', 'Industrial Planning']
-    }
-  };
 
   /**
    * Photos that 404 because the file has not been supplied yet. Tracked by
@@ -905,72 +970,6 @@ export class ExperiencePageComponent {
   /** The exhibit only counts as a second image when a photo already leads. */
   secondaryExhibit(project: Project): string | undefined {
     return this.photoOf(project) && project.exhibit ? project.exhibit : undefined;
-  }
-
-  /** How many projects sit in a sector, for the section header count. */
-  getSectorCount(category: string): number {
-    return this.projects.filter(p => p.category === category).length;
-  }
-
-  get filteredProjects(): Project[] {
-    let filtered = this.projects;
-
-    if (this.activeFilter !== 'All') {
-      filtered = filtered.filter(p => p.category === this.activeFilter);
-    }
-
-    if (this.searchQuery.trim()) {
-      const query = this.searchQuery.toLowerCase().trim();
-      filtered = filtered.filter(p =>
-        p.title.toLowerCase().includes(query) ||
-        p.location.toLowerCase().includes(query) ||
-        p.category.toLowerCase().includes(query) ||
-        p.description.toLowerCase().includes(query) ||
-        (p.scope || '').toLowerCase().includes(query) ||
-        (p.services || []).some(sv => sv.toLowerCase().includes(query))
-      );
-    }
-
-    return filtered;
-  }
-
-  /** Projects in a sector, those with verified imagery first. */
-  getProjectsByCategory(category: string): Project[] {
-    const inSector = this.projects.filter(p => p.category === category);
-    return [
-      ...inSector.filter(p => this.photoOf(p) || this.hasGallery(p)),
-      ...inSector.filter(p => !this.photoOf(p) && !this.hasGallery(p) && p.exhibit),
-      ...inSector.filter(p => !this.hasImage(p))
-    ];
-  }
-
-  setFilter(category: string) {
-    this.activeFilter = category;
-    // Scroll to the top of the grid when filter changes to ensure user sees results
-    setTimeout(() => {
-      const gridElement = document.getElementById('projects-grid');
-      if (gridElement) {
-        const headerOffset = 100; // Account for fixed header
-        const elementPosition = gridElement.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.scrollY - headerOffset;
-
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
-        });
-      }
-    }, 100);
-  }
-
-  scrollToProjects() {
-    const gridElement = document.getElementById('projects-grid');
-    if (gridElement) {
-      gridElement.scrollIntoView({ behavior: 'smooth' });
-    }
-  }
-
-  getSectorIndex(categoryId: string): number {
-    return this.sectors.indexOf(categoryId) + 1;
   }
 
   // ---- sector pages ---------------------------------------------------------

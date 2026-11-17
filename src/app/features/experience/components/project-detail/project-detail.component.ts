@@ -143,7 +143,7 @@ export class ProjectDetailComponent implements OnInit {
     'whitestone-oaks-apartments': {
       title: 'Whitestone Oaks Apartments',
       location: 'Cedar Park, TX',
-      heroImage: 'assets/images/projects/residential_whitestone.png',
+      heroImage: 'assets/images/brand/experience_hero_blueprint.png',
       services: ['Civil Engineering', 'Site Grading', 'Drainage Analysis', 'Permitting'],
       challenge: 'The site featured challenging karst geology with strict aquifer recharge zone regulations and significant elevation changes that complicated the grading plan.',
       solution: 'Rao Engineering developed a sophisticated terraced grading strategy that minimized retaining wall costs while optimizing buildable area. We implemented a specialized underground stormwater detention system to meet strict impervious cover limits without sacrificing unit yield.',

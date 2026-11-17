@@ -11,9 +11,8 @@ import { RouterModule } from '@angular/router';
     <header class="page-header relative h-[80vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-slate-950 pt-20">
       <!-- Layer 1: Background Image (Team/Professional) -->
       <div class="absolute inset-0 z-0">
-        <img src="assets/images/team/professional_ceo_portrait_1770853096194.png" 
-          alt="Engineering Team" 
-          title="Engineering Team" 
+        <img src="assets/images/brand/experience_hero_blueprint.png" 
+          alt="" aria-hidden="true" 
           class="w-full h-full object-cover opacity-40 scale-105 animate-subtle-zoom mix-blend-screen brightness-110 contrast-125">
       </div>
 
@@ -90,10 +89,9 @@ import { RouterModule } from '@angular/router';
           <div class="relative group">
             <div class="absolute -inset-4 border border-[#d5a021]/20 rounded-2xl transform rotate-2 group-hover:rotate-1 transition-transform duration-700"></div>
             <div class="absolute -inset-4 border border-white/5 rounded-2xl transform -rotate-2 group-hover:-rotate-1 transition-transform duration-700"></div>
-            <img src="assets/images/team/infrastructure_designer_portrait_2_1770853202858.png" 
-              alt="Team Collaboration" 
-              title="Team Collaboration" 
-              class="relative rounded-xl shadow-2xl grayscale hover:grayscale-0 transition-all duration-700 w-full object-cover aspect-[4/3] border border-white/10">
+            <img src="assets/images/brand/texas_map_outline.png" 
+              alt="Outline map of Texas" 
+              class="relative rounded-xl shadow-2xl transition-all duration-700 w-full object-cover aspect-[4/3] border border-white/10">
           </div>
         </div>
       </div>

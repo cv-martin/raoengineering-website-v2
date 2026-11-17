@@ -29,6 +29,7 @@ export class TransportationComponent implements AfterViewInit, OnDestroy {
   }
 
   private initializeAnimations(): void {
+    if (typeof window === 'undefined') return; // prerender has no browser
     // Check for reduced motion preference
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
