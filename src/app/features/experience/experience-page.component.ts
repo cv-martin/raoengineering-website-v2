@@ -764,9 +764,8 @@ export class ExperiencePageComponent {
       title: 'Burger King - Seguin',
       category: 'Retail & Restaurants',
       location: 'Seguin, TX',
-      exhibit: 'assets/projects/comercial/burger-king-seguin-rendering.jpg',
-      exhibitCaption: 'Illustrative visualization, SH 46',
-      exhibitKind: 'rendering',
+      photo: 'assets/projects/photos/burger-king-seguin.jpg',
+      photoCaption: 'Seguin, TX',
       description: '3,250 SF Burger King with a right-turn deceleration lane on SH 46.',
       scope: 'Deceleration lane design on SH 46 plus site civil design.',
       services: ['Traffic Engineering', 'Site Design', 'Civil Engineering']
